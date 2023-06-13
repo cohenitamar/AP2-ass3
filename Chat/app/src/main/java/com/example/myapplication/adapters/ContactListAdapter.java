@@ -1,6 +1,8 @@
 package com.example.myapplication.adapters;
 
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
@@ -11,76 +13,51 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class ContactListAdapter extends RecyclerView.Adapter<ContactListAdapter.ContactsViewHolder> {
+public class ContactListAdapter extends ArrayAdapter<Contact> {
+
+    LayoutInflater inflater;
 
 
 
-    // Member variable for the listener
 
 
-    class ContactsViewHolder extends RecyclerView.ViewHolder {
-        private final ShapeableImageView profilePic;
-        private final TextView name;
-        private final TextView date;
-        private final TextView lastMessage;
 
+    public ContactListAdapter(Context context, ArrayList<Contact> contactList) {
+        super(context, R.layout.custom_list_item, contactList);
+        this.inflater = LayoutInflater.from(context);
 
-        private ContactsViewHolder(View itemView) {
-            super(itemView);
-            this.profilePic = itemView.findViewById(R.id.contactProfilePic);
-            this.name = itemView.findViewById(R.id.contactName);
-            this.date = itemView.findViewById(R.id.contactLMDate);
-            this.lastMessage = itemView.findViewById(R.id.contactLastMessage);
-        }
     }
 
-
-
-    private final LayoutInflater mInflater;
-    private List<Contact> contacts;
-
-    public ContactListAdapter(Context context) {
-        this.mInflater = LayoutInflater.from(context);
-    }
-
+    @NonNull
     @Override
-    public ContactsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = mInflater.inflate(R.layout.custom_list_item, parent, false);
-        return new ContactsViewHolder(itemView);
-    }
+    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
-    @Override
-    public void onBindViewHolder(ContactsViewHolder holder, int pos) {
-        if (this.contacts != null) {
-            final Contact current = this.contacts.get(pos);
-            holder.lastMessage.setText(current.getLastMessage());
-            holder.lastMessage.setText(current.getDate());
-            holder.name.setText(current.getName());
-            holder.profilePic.setImageResource(current.getPic());
+        Contact contact = getItem(position);
 
+        if (convertView == null) {
+            convertView = inflater.inflate(R.layout.custom_list_item, parent, false);
         }
-    }
 
-    public void setContacts(List<Contact> s) {
-        this.contacts = s;
-        notifyDataSetChanged();
-    }
+        ImageView imageView = convertView.findViewById(R.id.contactProfilePic);
+        TextView userName = convertView.findViewById(R.id.contactName);
+        TextView lastMsg = convertView.findViewById(R.id.contactLastMessage);
+        TextView time = convertView.findViewById(R.id.contactLMDate);
 
-    @Override
-    public int getItemCount() {
-        if (this.contacts != null) {
-            return this.contacts.size();
-        } else {
-            return 0;
-        }
-    }
+        imageView.setImageResource(contact.getPic());
+        userName.setText(contact.getName());
+        lastMsg.setText(contact.getLastMessage());
+        time.setText(contact.getDate());
 
-    public List<Contact> getContacts() {
-        return this.contacts;
+        return convertView;
     }
-
 }
+
+
+
