@@ -1,0 +1,55 @@
+package com.example.myapplication.entities;
+
+import com.example.myapplication.R;
+
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity
+public class Message {
+
+    @PrimaryKey(autoGenerate = true)
+    private int id;
+
+    private String chatID;
+    private String sender;
+    private String receiver;
+    private String date;
+    private String content;
+
+
+    public Message(String chatID, String sender,
+                   String receiver, String date, String content) {
+       this.chatID = chatID;
+       this.sender = sender;
+       this.receiver = receiver;
+       this.date = date;
+       this.content = content;
+    }
+
+    public Message(){
+    }
+
+    public int getId(){ return id;}
+
+    public String getChatID(){return chatID;}
+
+    public String getSender() {return sender;}
+
+    public String getReceiver() {return receiver;}
+
+    public String getDate() {return date;}
+
+    public String getContent() {return content;}
+
+    public void setChatID(String chatID) {this.chatID = chatID;}
+
+    public void setSender(String sender) {this.sender = sender;}
+
+    public void setReceiver(String receiver) {this.receiver = receiver;}
+
+    public void setDate(String date) {this.date = date;}
+
+    public void setContent(String content) {this.content = content;}
+}
+
