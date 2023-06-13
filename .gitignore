@@ -1,0 +1,16 @@
+Chat/app/build
+Chat/*.iml
+Chat/.gradle
+Chat/local.properties
+Chat/.idea/caches
+Chat/.idea/libraries
+Chat/.idea/modules.xml
+Chat/.idea/workspace.xml
+Chat/.idea/navEditor.xml
+Chat/.idea/assetWizardSettings.xml
+Chat/.DS_Store
+Chat/build
+Chat/captures
+Chat/.externalNativeBuild
+Chat/.cxx
+Chat/local.properties
