@@ -41,9 +41,7 @@ public class ContactListAdapter extends ArrayAdapter<Contact> {
 
         Contact contact = getItem(position);
 
-        if (convertView == null) {
             convertView = inflater.inflate(R.layout.custom_list_item, parent, false);
-        }
 
         ImageView imageView = convertView.findViewById(R.id.contactProfilePic);
         TextView userName = convertView.findViewById(R.id.contactName);
