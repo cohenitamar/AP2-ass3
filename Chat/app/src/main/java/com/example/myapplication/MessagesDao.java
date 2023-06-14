@@ -11,7 +11,7 @@ import com.example.myapplication.entities.Message;
 import java.util.List;
 
 @Dao
-public interface MessegesDao {
+public interface MessagesDao {
 
 
     @Query("SELECT * FROM message")

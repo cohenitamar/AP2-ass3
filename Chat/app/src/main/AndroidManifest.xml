@@ -23,6 +23,10 @@
         <activity
             android:name=".MessageActivity"
             android:exported="false">
+        </activity>
+        <activity
+            android:name=".AddContact"
+            android:exported="false">
 
         </activity>
     </application>
