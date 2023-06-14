@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="textView3" type="id">empty</item>
+    <item name="empty" type="id" />
+</resources>

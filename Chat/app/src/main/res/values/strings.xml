@@ -25,4 +25,7 @@
     <string name="type_password">Type Password</string>
     <string name="undrline"><u> Create An Account  </u> </string>
     <string name="login">Login</string>
+    <string name="username">Username</string>
+    <string name="welcome">Welcome!</string>
+    <string name="welcome_with_spaces">Welcome!</string>
 </resources>
