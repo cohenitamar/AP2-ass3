@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.messages;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.myapplication.R;
 import com.example.myapplication.adapters.MessageListAdapter;
 import com.example.myapplication.entities.Message;
 import com.google.android.material.imageview.ShapeableImageView;

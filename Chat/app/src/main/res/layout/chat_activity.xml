@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#010137"
-    tools:context=".ContactActivity">
+    tools:context=".contacts.ContactActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

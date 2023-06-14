@@ -1,7 +1,9 @@
-package com.example.myapplication;
+package com.example.myapplication.contacts;
 
+import com.example.myapplication.R;
 import com.example.myapplication.adapters.ContactListAdapter;
 import com.example.myapplication.entities.Contact;
+import com.example.myapplication.messages.MessageActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;

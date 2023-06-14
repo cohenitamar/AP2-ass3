@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.contacts;
 
 import android.os.Bundle;
 import android.widget.Button;
@@ -8,6 +8,7 @@ import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
+import com.example.myapplication.R;
 import com.example.myapplication.adapters.ContactListAdapter;
 import com.example.myapplication.entities.Contact;
 

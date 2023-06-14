@@ -2,4 +2,27 @@
     <string name="app_name">My Application</string>
     <string name="contacts">Contacts</string>
     <string name="add_contact">Add Contact</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="join_us">Join Us!</string>
+    <string name="first_name_input">First Name</string>
+    <string name="last_name_input">Last Name</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="password_input">Password</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="confirmpassword_input">ConfirmPassword</string>
+    <string name="nickname">Nickname</string>
+    <string name="nickname_input">Nickname</string>
+    <string name="usericon">usericon</string>
+    <string name="passwordiicon">passwordIIcon</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="logintext">Login</string>
+    <string name="usernametext">Username</string>
+    <string name="type_username">Type UserName</string>
+    <string name="lockicon">lockIcon</string>
+    <string name="type_password">Type Password</string>
+    <string name="undrline"><u> Create An Account  </u> </string>
+    <string name="login">Login</string>
 </resources>

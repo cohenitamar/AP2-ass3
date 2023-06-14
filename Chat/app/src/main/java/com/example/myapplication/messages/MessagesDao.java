@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.messages;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
