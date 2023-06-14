@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.messages;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -11,7 +11,7 @@ import com.example.myapplication.entities.Message;
 import java.util.List;
 
 @Dao
-public interface MessegesDao {
+public interface MessagesDao {
 
 
     @Query("SELECT * FROM message")

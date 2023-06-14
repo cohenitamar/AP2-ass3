@@ -20,13 +20,14 @@
 
             <TextView
                 android:id="@+id/messageMeText"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="25dp"
                 android:background="@drawable/message_me_background"
                 android:padding="12dp"
-                android:text="Hey,How are you today?" />
+                android:text="A"
+                android:textColor="#000000" />
 
             <TextView
                 android:id="@+id/messageMeDate"
@@ -35,7 +36,8 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="25dp"
                 android:gravity="end"
-                android:text="24/10/2020 13:23" />
+                android:text="24/10/2020 13:23"
+                android:textColor="#000000" />
         </LinearLayout>
 
     </LinearLayout>

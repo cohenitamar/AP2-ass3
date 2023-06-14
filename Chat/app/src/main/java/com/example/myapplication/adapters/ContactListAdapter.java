@@ -3,11 +3,9 @@ package com.example.myapplication.adapters;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
 import com.example.myapplication.entities.Contact;
-import com.google.android.material.imageview.ShapeableImageView;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -18,7 +16,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ContactListAdapter extends ArrayAdapter<Contact> {
 
@@ -30,7 +27,7 @@ public class ContactListAdapter extends ArrayAdapter<Contact> {
 
 
     public ContactListAdapter(Context context, ArrayList<Contact> contactList) {
-        super(context, R.layout.custom_list_item, contactList);
+        super(context, R.layout.contact, contactList);
         this.inflater = LayoutInflater.from(context);
 
     }
@@ -41,7 +38,7 @@ public class ContactListAdapter extends ArrayAdapter<Contact> {
 
         Contact contact = getItem(position);
 
-            convertView = inflater.inflate(R.layout.custom_list_item, parent, false);
+            convertView = inflater.inflate(R.layout.contact, parent, false);
 
         ImageView imageView = convertView.findViewById(R.id.contactProfilePic);
         TextView userName = convertView.findViewById(R.id.contactName);
