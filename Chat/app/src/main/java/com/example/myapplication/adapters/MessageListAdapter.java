@@ -38,7 +38,7 @@ public class MessageListAdapter extends ArrayAdapter<Message> {
     public View getView(int position, @Nullable View convertView, @Nullable ViewGroup parent) {
         Message message = getItem(position);
         TextView content = null, date = null;
-        if (convertView == null) {
+
             if (this.me.equals(message.getSender())) {
                 convertView = inflater.inflate(R.layout.message_me, parent, false);
                 content = convertView.findViewById(R.id.messageMeText);
@@ -48,7 +48,7 @@ public class MessageListAdapter extends ArrayAdapter<Message> {
                 content = convertView.findViewById(R.id.messageHimText);
                 date = convertView.findViewById(R.id.messageHimDate);
             }
-        }
+
         content.setText(message.getContent());
         date.setText(message.getDate());
 
