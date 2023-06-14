@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -43,7 +44,11 @@ public class ContactActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.i("CONTACTCLICK", "CLICKED A CONTACTTTTTT");
+                Contact clickedContact = contacts.get(position);
+                Intent intent = new Intent(ContactActivity.this,MessageActivity.class);
+                intent.putExtra("username",clickedContact.getName());
+                intent.putExtra("pic",clickedContact.getPic());
+                startActivity(intent);
             }
 
         });
