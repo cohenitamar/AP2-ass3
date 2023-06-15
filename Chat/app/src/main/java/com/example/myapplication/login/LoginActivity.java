@@ -43,9 +43,9 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onChanged(String s) {
                 Intent intent = new Intent(LoginActivity.this, ContactActivity.class);
-                chatsAPI.get("Bearer" +" " + s);
-               // intent.putExtra("token",s);
-               // startActivity(intent);
+              //  chatsAPI.get("Bearer" +" " + s);
+             //  intent.putExtra("token",s);
+                startActivity(intent);
             }
         });
     }

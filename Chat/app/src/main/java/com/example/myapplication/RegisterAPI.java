@@ -5,6 +5,7 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.myapplication.entities.ChatUser;
+import com.example.myapplication.entities.RegisterUser;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -47,7 +48,7 @@ public class RegisterAPI {
         return responseLiveData;
     }
 
-    public void post(ChatUser user) {
+    public void post(RegisterUser user) {
         Call<Void> call = registerAPI.register(user);
         call.enqueue(new Callback<Void>() {
             @Override
