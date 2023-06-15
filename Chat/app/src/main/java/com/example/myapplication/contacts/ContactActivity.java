@@ -1,20 +1,22 @@
 package com.example.myapplication.contacts;
 
-import com.example.myapplication.R;
-import com.example.myapplication.adapters.ContactListAdapter;
-import com.example.myapplication.entities.Contact;
-import com.example.myapplication.messages.MessageActivity;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
-
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.room.Room;
+
+import com.example.myapplication.R;
+import com.example.myapplication.adapters.ContactListAdapter;
+import com.example.myapplication.entities.Contact;
+import com.example.myapplication.messages.MessageActivity;
+import com.example.myapplication.viewmodels.ContactsViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +29,9 @@ public class ContactActivity extends AppCompatActivity {
     private ContactsDao contactsDao;
     private ContactDB db;
 
+
+    private ContactsViewModel viewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,16 +43,13 @@ public class ContactActivity extends AppCompatActivity {
 
         this.contactsDao = db.contactDao();
 
+        this.viewModel = new ContactsViewModel(contactsDao);
+
         this.contacts = new ArrayList<>();
-/*        contacts.add(new Contact("afhadfg", R.drawable.profilepicture,
-                "a", "Ori Arad", "Hello", "12/02/2021 14:23"));
-        contacts.add(new Contact("afhadfg", R.drawable.profilepicture,
-                "b", "Tal Gelerman", "Sup", "12/02/2021 18:23"));
-        contacts.add(new Contact("afhadfg", R.drawable.profilepicture,
-                "c", "Itamar Cohen", "helllooo", "30/02/2021 14:23"));*/
+
 
         listView = findViewById(R.id.contactsList);
-        adapter = new ContactListAdapter(getApplicationContext(), (ArrayList<Contact>) this.contacts);
+        adapter = new ContactListAdapter(getApplicationContext(), new ArrayList<Contact>());
 
         listView.setAdapter(adapter);
         listView.setClickable(true);
@@ -74,8 +76,18 @@ public class ContactActivity extends AppCompatActivity {
 
         });
 
-    }
+        viewModel.get().observe(this, new Observer<List<Contact>>() {
+            @Override
+            public void onChanged(List<Contact> contact) {
+                Log.d("ori","gdgdd");
+                List<Contact> contac =contact;
+               adapter.setContacts(contact);
 
+            }
+        });
+
+
+    }
 
     @Override
     protected void onResume() {

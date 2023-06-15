@@ -1,12 +1,6 @@
 package com.example.myapplication.adapters;
 
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
-import com.example.myapplication.R;
-import com.example.myapplication.entities.Contact;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,14 +9,18 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import com.example.myapplication.R;
+import com.example.myapplication.entities.Contact;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class ContactListAdapter extends ArrayAdapter<Contact> {
 
     LayoutInflater inflater;
-
-
-
 
 
 
@@ -51,6 +49,14 @@ public class ContactListAdapter extends ArrayAdapter<Contact> {
         time.setText(contact.getDate());
 
         return convertView;
+    }
+
+    public void setContacts(List<Contact> contacts) {
+        this.clear();
+        if (contacts != null) {
+            addAll(contacts);
+        }
+        notifyDataSetChanged();
     }
 }
 
