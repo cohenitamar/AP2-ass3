@@ -127,6 +127,7 @@
 
 
         <TextView
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -139,6 +140,7 @@
 
 
         <Button
+            android:id="@+id/buttonLogin"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -146,7 +148,6 @@
             android:layout_marginBottom="50dp"
             android:backgroundTint="@color/minedarkblue"
             android:fontFamily="sans-serif-medium"
-
             android:text="@string/login"
             android:textSize="30dp"
             app:cornerRadius="10dp">
