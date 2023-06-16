@@ -94,7 +94,8 @@
                 app:cornerRadius="0dp"
                 app:icon="@drawable/ic_sendmessage"
                 app:iconGravity="textStart"
-                app:iconPadding="0dp"/>
+                app:iconPadding="0dp"
+                app:iconTint="#FFFFFF" />
 
 
         </LinearLayout>

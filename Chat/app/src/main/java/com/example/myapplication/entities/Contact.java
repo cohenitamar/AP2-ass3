@@ -1,90 +1,43 @@
 package com.example.myapplication.entities;
 
-import com.example.myapplication.R;
-
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity
 public class Contact {
-    @PrimaryKey(autoGenerate = true)
-    private int id;
-    private String contactID;
-    private int pic;
-    private String username;
-    private String name;
-    private String lastMessage;
-    private String date;
-
-    public Contact(String contactID, int pic, String username, String name,
-                   String lastMessage, String date) {
-        this.contactID = contactID;
-        this.pic = pic;
-        this.username = username;
-        this.name = name;
-        this.lastMessage = lastMessage;
-        this.date = date;
-    }
-
-    public Contact() {
-        this.pic = R.drawable.profilepic;
-    }
-
-
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public String getContactID() {
-        return contactID;
+    public ChatUser getUser() {
+        return user;
     }
 
-    public void setContactID(String contactID) {
-        this.contactID = contactID;
+    public void setUser(ChatUser user) {
+        this.user = user;
     }
 
-    public int getPic() {
-        return pic;
-    }
-
-    public void setPic(int pic) {
-        this.pic = pic;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getLastMessage() {
+    public ChatMessage getLastMessage() {
         return lastMessage;
     }
 
-    public void setLastMessage(String lastMessage) {
+    public void setLastMessage(ChatMessage lastMessage) {
         this.lastMessage = lastMessage;
     }
 
-    public String getDate() {
-        return date;
-    }
+    @PrimaryKey @NonNull
+    private String id;
+    private ChatUser user;
+    private ChatMessage lastMessage;
 
-    public void setDate(String date) {
-        this.date = date;
+    public Contact(String id, ChatUser user, ChatMessage lastMessage) {
+        this.id = id;
+        this.user = user;
+        this.lastMessage = lastMessage;
     }
-
 }

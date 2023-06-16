@@ -25,7 +25,6 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.login_activity);
 
         LoginAPI loginAPI = new LoginAPI();
-        ChatsAPI chatsAPI = new ChatsAPI();
 
         Button btn = findViewById(R.id.buttonLogin);
 
@@ -42,10 +41,12 @@ public class LoginActivity extends AppCompatActivity {
         loginAPI.getResponseLiveData().observe(this, new Observer<String>() {
             @Override
             public void onChanged(String s) {
+
                 Intent intent = new Intent(LoginActivity.this, ContactActivity.class);
-              //  chatsAPI.get("Bearer" +" " + s);
-             //  intent.putExtra("token",s);
+                intent.putExtra("token","Bearer " + s);
                 startActivity(intent);
+
+
             }
         });
     }

@@ -1,5 +1,7 @@
 package com.example.myapplication.viewmodels;
 
+import android.content.Context;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -14,9 +16,11 @@ public class ContactsViewModel extends ViewModel {
     private ContactRepository mRepository;
     private LiveData<List<Contact>> contacts;
 
-    public ContactsViewModel(ContactsDao contactsDao) {
-        this.mRepository = new ContactRepository(contactsDao);
-        this.contacts = this.mRepository.getAll();
+    public ContactsViewModel(String token) {
+        this.mRepository = new ContactRepository(token);
+        this.contacts = mRepository.getAll();
+        int a = 4;
+        int b = 6;
     }
 
     public LiveData<List<Contact>> get() {

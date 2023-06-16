@@ -18,7 +18,6 @@
         <activity
             android:name=".contacts.ContactActivity"
             android:exported="false" >
-
         </activity>
         <activity
             android:name=".messages.MessageActivity"
