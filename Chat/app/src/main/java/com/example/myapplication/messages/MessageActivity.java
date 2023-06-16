@@ -12,8 +12,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.SingletonDatabase;
 import com.example.myapplication.adapters.MessageListAdapter;
 import com.example.myapplication.entities.Message;
+import com.example.myapplication.entities.MessagesByID;
+import com.example.myapplication.viewmodels.ContactsViewModel;
+import com.example.myapplication.viewmodels.MessagesViewModel;
 import com.google.android.material.imageview.ShapeableImageView;
 
 import java.text.SimpleDateFormat;
@@ -24,8 +28,10 @@ import java.util.List;
 public class MessageActivity extends AppCompatActivity {
     ListView listView;
 
-    List<Message> messages;
+    List<MessagesByID> messages;
     MessageListAdapter adapter;
+
+    private MessagesViewModel viewModel;
 
     private MessagesDao messagesDao;
     private MessageDB db;
@@ -35,34 +41,35 @@ public class MessageActivity extends AppCompatActivity {
         setContentView(R.layout.chat_activity);
 
         ///TODO I DONT THINK WE SHOULD ALLOW MAIN THREAD QUERIES IDK?
-        this.db = Room.databaseBuilder(getApplicationContext(), MessageDB.class,
-                "MessageDB").allowMainThreadQueries().build();
+        this.db = SingletonDatabase.getMessageInstance(getApplicationContext());
 
         this.messagesDao = db.messageDao();
 
+        Intent activityIntent = getIntent();
+        String token = null;
+        String chatID = null;
+        if (activityIntent != null) {
+            token = activityIntent.getStringExtra("token");
+            chatID = activityIntent.getStringExtra("chatID");
+        }
 
-   /*     ArrayList<Message> messages = new ArrayList<>();
-        messages.add(new Message("adfghasdfgh", "ME", "ADFGAD", "12/12/2023",  "hello1"));
-        messages.add(new Message("adfghasdfgh", "SDFGH", "ADFGAD", "12/12/2023",  "hello2"));
-        messages.add(new Message("adfghasdfgh", "ME", "ADFGAD", "12/12/2023",  "hello3"));
-        messages.add(new Message("adfghasdfgh", "DFGH", "ADFGAD", "12/12/2023",  "hello4"));
-        messages.add(new Message("adfghasdfgh", "ME", "ADFGAD", "12/12/2023",  "hello5"));
-        messages.add(new Message("adfghasdfgh", "ME", "ADFGAD", "12/12/2023",  "hello5"));
-        messages.add(new Message("adfghasdfgh", "ME", "ADFGAD", "12/12/2023",  "hello5"));
-        messages.add(new Message("adfghasdfgh", "ME", "ADFGAD", "12/12/2023",  "hello5"));
-        messages.add(new Message("adfghasdfgh", "ME", "ADFGAD", "12/12/2023",  "hello5"));
-        messages.add(new Message("adfghasdfgh", "ME", "ADFGAD", "12/12/2023",  "hello5"));*/
+        this.viewModel = new MessagesViewModel(token);
+        this.viewModel.getmRepository().setId(chatID);
+
+
+        viewModel.get().observe(this, messages -> {
+            adapter.setMessages(messages);
+        });
 
 
         this.messages = messagesDao.index();
         listView = findViewById(R.id.messageList);
-        adapter = new MessageListAdapter(getApplicationContext(), (ArrayList<Message>) this.messages);
+        adapter = new MessageListAdapter(getApplicationContext(), (ArrayList<MessagesByID>) this.messages);
         listView.setClickable(false);
         listView.setAdapter(adapter);
         listView.setSelection(adapter.getCount() - 1);
 
 
-        Intent activityIntent = getIntent();
         if (activityIntent != null) {
             String userName = activityIntent.getStringExtra("username");
             int profilePicture = activityIntent.getIntExtra("pic", 1);
@@ -89,10 +96,10 @@ public class MessageActivity extends AppCompatActivity {
                     messages.add(new Message("adfghasdfgh", "ME", "ADFGAD", formattedDateTime.toString(), text.getText().toString()));
 */
                     adapter.notifyDataSetChanged();
-                    messagesDao.insert(msg);
+                  /*  messagesDao.insert(msg);
                     text.setText("");
                     messages.clear();
-                    messages.addAll(messagesDao.index());
+                    messages.addAll(messagesDao.index());*/
                     listView.smoothScrollToPosition(adapter.getCount() - 1);
                 }
 
@@ -104,9 +111,9 @@ public class MessageActivity extends AppCompatActivity {
     @Override
     protected void onResume(){
         super.onResume();
-/*        this.messages.clear();
+        this.messages.clear();
         this.messages.addAll(this.messagesDao.index());
-        this.adapter.notifyDataSetChanged();*/
+        this.adapter.notifyDataSetChanged();
 
     }
 

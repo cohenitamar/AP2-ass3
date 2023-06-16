@@ -39,7 +39,7 @@ public class LoginAPI {
                 .build();
         userAPI = retrofit.create(UserAPI.class);
 
-        responseLiveData = new MutableLiveData<String>();
+        responseLiveData = new MutableLiveData<>();
 
     }
 
@@ -51,7 +51,7 @@ public class LoginAPI {
 
     public void post(UserLogin userLogin) {
         Call<String> call = userAPI.login(userLogin);
-        call.enqueue(new Callback<String>() {
+        call.enqueue(new Callback<>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 if (response.isSuccessful()) {

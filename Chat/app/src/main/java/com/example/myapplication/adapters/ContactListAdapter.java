@@ -23,9 +23,8 @@ public class ContactListAdapter extends ArrayAdapter<Contact> {
     LayoutInflater inflater;
 
 
-
     public ContactListAdapter(Context context, ArrayList<Contact> contactList) {
-        super(context, R.layout.contact, contactList);
+        super(context, 0, contactList);
         this.inflater = LayoutInflater.from(context);
 
     }
@@ -36,17 +35,25 @@ public class ContactListAdapter extends ArrayAdapter<Contact> {
 
         Contact contact = getItem(position);
 
-            convertView = inflater.inflate(R.layout.contact, parent, false);
+        convertView = inflater.inflate(R.layout.contact, parent, false);
 
         ImageView imageView = convertView.findViewById(R.id.contactProfilePic);
         TextView userName = convertView.findViewById(R.id.contactName);
         TextView lastMsg = convertView.findViewById(R.id.contactLastMessage);
         TextView time = convertView.findViewById(R.id.contactLMDate);
 
-        imageView.setImageResource(contact.getPic());
-        userName.setText(contact.getName());
-        lastMsg.setText(contact.getLastMessage());
-        time.setText(contact.getDate());
+        imageView.setImageResource(R.drawable.profilepicture);
+        userName.setText(contact.getUser().getDisplayName());
+        String lm = "";
+        String created = "";
+        if (contact.getLastMessage() != null) {
+            if (contact.getLastMessage().getContent() != null)
+                lm = contact.getLastMessage().getContent();
+            if (contact.getLastMessage().getCreated() != null)
+                created = contact.getLastMessage().getCreated();
+        }
+        lastMsg.setText(lm);
+        time.setText(created);
 
         return convertView;
     }
