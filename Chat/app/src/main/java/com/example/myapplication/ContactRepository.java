@@ -44,4 +44,10 @@ public class ContactRepository {
     public LiveData<List<Contact>> getAll() {
         return contactListData;
     }
+
+
+    public void addContact(String username){
+        api.postChats(token,username);
+
+    }
 }

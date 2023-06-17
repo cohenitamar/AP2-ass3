@@ -1,12 +1,9 @@
 package com.example.myapplication.viewmodels;
 
-import android.content.Context;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.myapplication.ContactRepository;
-import com.example.myapplication.contacts.ContactsDao;
 import com.example.myapplication.entities.Contact;
 
 import java.util.List;
@@ -29,6 +26,10 @@ public class ContactsViewModel extends ViewModel {
 
     public void add(Contact c) {
        // this.mRepository.add(c);
+    }
+
+    public void addContact (String username){
+        mRepository.addContact(username);
     }
 
     public void delete(Contact c) {

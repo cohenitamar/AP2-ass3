@@ -59,7 +59,7 @@ public class LoginAPI {
                     Log.e("API Call",response.body());
                     // Handle the response string
                 } else {
-                    Log.e("API Call","faillogin");
+                    responseLiveData.setValue("Not valid user/password.");
                 }
             }
 

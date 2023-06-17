@@ -1,8 +1,5 @@
 package com.example.myapplication.messages;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,12 +8,13 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.myapplication.R;
 import com.example.myapplication.SingletonDatabase;
 import com.example.myapplication.adapters.MessageListAdapter;
 import com.example.myapplication.entities.Message;
 import com.example.myapplication.entities.MessagesByID;
-import com.example.myapplication.viewmodels.ContactsViewModel;
 import com.example.myapplication.viewmodels.MessagesViewModel;
 import com.google.android.material.imageview.ShapeableImageView;
 
@@ -32,6 +30,8 @@ public class MessageActivity extends AppCompatActivity {
     MessageListAdapter adapter;
 
     private MessagesViewModel viewModel;
+
+
 
     private MessagesDao messagesDao;
     private MessageDB db;

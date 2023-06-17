@@ -5,16 +5,16 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.myapplication.contacts.ContactDB;
-import com.example.myapplication.entities.ChatMessage;
+import com.example.myapplication.contacts.ContactsDao;
 import com.example.myapplication.entities.Contact;
 import com.example.myapplication.entities.MessagesByID;
+import com.example.myapplication.entities.PostChatUser;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -30,7 +30,7 @@ public class ChatsAPI {
     ChatAPI chatApi;
 
 
-    private MutableLiveData<String> responseLiveData;
+    private MutableLiveData<String> responseAnswer;
 
     public ChatsAPI() {
 
@@ -50,11 +50,9 @@ public class ChatsAPI {
 
         chatApi = retrofit.create(ChatAPI.class);
 
-        responseLiveData = new MutableLiveData<>();
+        responseAnswer = new MutableLiveData<>();
 
     }
-
-
 
 
     public void get(MutableLiveData<List<Contact>> contactListData, String token) {
@@ -111,6 +109,41 @@ public class ChatsAPI {
                 } else {
                     Log.e("API Call", "Unknown error occurred.");
                 }
+            }
+        });
+    }
+
+    public void postChats(String token, String username) {
+        Call<PostChatUser> call = chatApi.postChat(token, Map.of("username", username));
+        call.enqueue(new Callback<PostChatUser>() {
+            @Override
+            public void onResponse(Call<PostChatUser> call, Response<PostChatUser> response) {
+                if (response.isSuccessful()) {
+                    ContactDB db = SingletonDatabase.getContactInstance();
+                    ContactsDao dao = db.contactDao();
+                    PostChatUser p = response.body();
+                    Contact c = new Contact(p.getId(), p.getUser(), null);
+                    dao.insert(c);
+                    Log.e("API Call", response.body().toString());
+                    responseAnswer.setValue("ok");
+                }
+
+                else{
+                        int a = response.code();
+
+                        responseAnswer.setValue(response.errorBody().toString());
+                    Log.e("API Call","dfdfdf");
+                    Log.e("API Call", responseAnswer.toString());
+                     a = response.code();
+                    }
+
+
+                }
+
+
+            @Override
+            public void onFailure(Call<PostChatUser> call, Throwable t) {
+                Log.e("API Call", "probleeeeem");
             }
         });
     }
