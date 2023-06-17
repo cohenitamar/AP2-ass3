@@ -3,7 +3,6 @@ package com.example.myapplication.viewmodels;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.myapplication.ContactRepository;
 import com.example.myapplication.MessageRepository;
 import com.example.myapplication.entities.Contact;
 import com.example.myapplication.entities.MessagesByID;
@@ -20,11 +19,12 @@ public class MessagesViewModel extends ViewModel {
     private LiveData<List<MessagesByID>> messages;
 
 
-    public MessagesViewModel(String token) {
-        this.mRepository = new MessageRepository(token);
+
+
+    public MessagesViewModel(String token,String chatId) {
+        this.mRepository = new MessageRepository(token,chatId);
         this.messages = mRepository.getAll();
-        int a = 4;
-        int b = 6;
+
     }
 
     public LiveData<List<MessagesByID>> get() {

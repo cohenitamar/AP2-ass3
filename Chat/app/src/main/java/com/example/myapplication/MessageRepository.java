@@ -3,7 +3,6 @@ package com.example.myapplication;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.myapplication.entities.Contact;
 import com.example.myapplication.entities.MessagesByID;
 import com.example.myapplication.messages.MessageDB;
 import com.example.myapplication.messages.MessagesDao;
@@ -23,19 +22,22 @@ public class MessageRepository {
     String id;
     String token;
 
-    public MessageRepository(String token) {
+    String chatId;
+
+    public MessageRepository(String token,String ChatId) {
         this.token = token;
         this.db = SingletonDatabase.getMessageInstance();
         this.messagesDao = db.messageDao();
         this.messageListData = new MessageListData();
         this.api = new ChatsAPI();
+        this.chatId = ChatId;
     }
 
     class MessageListData extends MutableLiveData<List<MessagesByID>> {
 
         public MessageListData() {
             super();
-            setValue(messagesDao.index());
+            setValue(messagesDao.get(chatId));
         }
 
         @Override

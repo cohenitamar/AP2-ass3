@@ -29,6 +29,8 @@ public class ContactActivity extends AppCompatActivity {
     private ContactsDao contactsDao;
     private ContactDB db;
 
+    private String username;
+
     String token;
     private ContactsViewModel viewModel;
 
@@ -41,6 +43,8 @@ public class ContactActivity extends AppCompatActivity {
 
         if (activityIntent != null) {
             token = activityIntent.getStringExtra("token");
+            username = activityIntent.getStringExtra("username");
+
         }
         this.db = SingletonDatabase.getContactInstance(getApplicationContext());
 
@@ -69,6 +73,7 @@ public class ContactActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(ContactActivity.this, AddContact.class);
                 intent.putExtra("token", token);
+
                 startActivity(intent);
             }
         });
@@ -82,6 +87,7 @@ public class ContactActivity extends AppCompatActivity {
                 intent.putExtra("chatID", clickedContact.getId());
                 intent.putExtra("username", clickedContact.getUser().getDisplayName());
                 intent.putExtra("token", token);
+                intent.putExtra("myUsername", username);
                 intent.putExtra("pic", R.drawable.profilepicture);
                 startActivity(intent);
             }
