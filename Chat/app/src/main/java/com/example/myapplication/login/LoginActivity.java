@@ -3,6 +3,7 @@ package com.example.myapplication.login;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -10,7 +11,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 
-import com.example.myapplication.ChatsAPI;
 import com.example.myapplication.LoginAPI;
 import com.example.myapplication.R;
 import com.example.myapplication.contacts.ContactActivity;
@@ -42,10 +42,14 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onChanged(String s) {
 
-                Intent intent = new Intent(LoginActivity.this, ContactActivity.class);
-                intent.putExtra("token","Bearer " + s);
-                startActivity(intent);
-
+                if (s.equals("Not valid user/password.")){
+                    Log.e("tall","check");
+                }
+                else{
+                    Intent intent = new Intent(LoginActivity.this, ContactActivity.class);
+                    intent.putExtra("token","Bearer " + s);
+                    startActivity(intent);
+                }
 
             }
         });

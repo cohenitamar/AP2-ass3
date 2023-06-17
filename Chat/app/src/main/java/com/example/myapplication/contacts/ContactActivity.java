@@ -2,15 +2,14 @@ package com.example.myapplication.contacts;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.MutableLiveData;
 
-import com.example.myapplication.ChatsAPI;
 import com.example.myapplication.R;
 import com.example.myapplication.SingletonDatabase;
 import com.example.myapplication.adapters.ContactListAdapter;
@@ -40,7 +39,6 @@ public class ContactActivity extends AppCompatActivity {
 
         Intent activityIntent = getIntent();
 
-        ChatsAPI chatsAPI = new ChatsAPI();
         if (activityIntent != null) {
             token = activityIntent.getStringExtra("token");
         }
@@ -56,8 +54,8 @@ public class ContactActivity extends AppCompatActivity {
         listView = findViewById(R.id.contactsList);
         adapter = new ContactListAdapter(getApplicationContext(), (ArrayList<Contact>) this.contacts);
 
-           viewModel.get().observe(this, contacts -> {
-               adapter.setContacts(contacts);
+        viewModel.get().observe(this, contacts -> {
+            adapter.setContacts(contacts);
         });
 
 
@@ -65,12 +63,12 @@ public class ContactActivity extends AppCompatActivity {
         listView.setClickable(true);
 
 
-
         Button addContact = findViewById(R.id.addcontact);
         addContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ContactActivity.this, AddContact.class);
+                intent.putExtra("token", token);
                 startActivity(intent);
             }
         });
@@ -81,7 +79,7 @@ public class ContactActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Contact clickedContact = contacts.get(position);
                 Intent intent = new Intent(ContactActivity.this, MessageActivity.class);
-                intent.putExtra("chatID" , clickedContact.getId());
+                intent.putExtra("chatID", clickedContact.getId());
                 intent.putExtra("username", clickedContact.getUser().getDisplayName());
                 intent.putExtra("token", token);
                 intent.putExtra("pic", R.drawable.profilepicture);
@@ -91,10 +89,13 @@ public class ContactActivity extends AppCompatActivity {
         });
 
 
+
+
     }
 
     @Override
     protected void onResume() {
+        Log.e("oriiii", "onResume");
         super.onResume();
         this.contacts.clear();
         this.contacts.addAll(this.contactsDao.index());
