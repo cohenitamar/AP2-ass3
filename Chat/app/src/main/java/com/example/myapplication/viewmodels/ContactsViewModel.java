@@ -16,8 +16,6 @@ public class ContactsViewModel extends ViewModel {
     public ContactsViewModel(String token) {
         this.mRepository = new ContactRepository(token);
         this.contacts = mRepository.getAll();
-        int a = 4;
-        int b = 6;
     }
 
     public LiveData<List<Contact>> get() {

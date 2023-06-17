@@ -20,9 +20,11 @@
     <string name="sign_up">Sign Up</string>
     <string name="logintext">Login</string>
     <string name="usernametext">Username</string>
+    <string name="username">Username</string>
     <string name="type_username">Type UserName</string>
     <string name="lockicon">lockIcon</string>
     <string name="type_password">Type Password</string>
+    <string name="welcome_with_spaces">Welcome!</string>
     <string name="undrline"><u> Create An Account  </u> </string>
     <string name="login">Login</string>
 </resources>

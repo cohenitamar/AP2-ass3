@@ -8,7 +8,6 @@ import com.example.myapplication.entities.ChatUser;
 import com.example.myapplication.entities.Sender;
 import com.google.gson.Gson;
 
-import kotlinx.coroutines.channels.Send;
 
 public class Converter {
 
