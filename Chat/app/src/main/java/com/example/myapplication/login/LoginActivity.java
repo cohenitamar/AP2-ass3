@@ -19,6 +19,8 @@ import com.example.myapplication.entities.UserLogin;
 
 public class LoginActivity extends AppCompatActivity {
 
+    String usernameStr;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +35,9 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 TextView username = findViewById(R.id.usernameInput);
                 TextView password = findViewById(R.id.passwordInput);
+                usernameStr = username.getText().toString();
                 loginAPI.post(new UserLogin(username.getText().toString(),password.getText().toString()));
+
 
             }
         });
@@ -48,6 +52,7 @@ public class LoginActivity extends AppCompatActivity {
                 else{
                     Intent intent = new Intent(LoginActivity.this, ContactActivity.class);
                     intent.putExtra("token","Bearer " + s);
+                    intent.putExtra("username",usernameStr);
                     startActivity(intent);
                 }
 

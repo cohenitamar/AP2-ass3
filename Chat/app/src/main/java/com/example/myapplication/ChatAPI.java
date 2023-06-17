@@ -3,6 +3,7 @@ package com.example.myapplication;
 import com.example.myapplication.entities.Contact;
 import com.example.myapplication.entities.MessagesByID;
 import com.example.myapplication.entities.PostChatUser;
+import com.example.myapplication.entities.PostMessagesByID;
 
 import java.util.List;
 import java.util.Map;
@@ -24,6 +25,10 @@ public interface ChatAPI {
 
     @POST("Chats")
     Call <PostChatUser> postChat(@Header("Authorization") String token, @Body Map<String, String> requestBody);
+
+    @POST("Chats/{id}/Messages")
+    Call <PostMessagesByID> postMessage(@Path("id") String id, @Header("Authorization") String token, @Body Map<String, String> requestBody);
+
 
 }
 

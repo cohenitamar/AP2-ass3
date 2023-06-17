@@ -9,6 +9,7 @@ import com.example.myapplication.contacts.ContactsDao;
 import com.example.myapplication.entities.Contact;
 import com.example.myapplication.entities.MessagesByID;
 import com.example.myapplication.entities.PostChatUser;
+import com.example.myapplication.entities.PostMessagesByID;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -93,6 +94,9 @@ public class ChatsAPI {
                 if (response.isSuccessful()) {
                     List<MessagesByID> mByID = response.body();
                     Collections.reverse(mByID);
+                    for(MessagesByID m : mByID) {
+                        m.setChatID(id);
+                    }
                     messageListData.setValue(mByID);
                     Log.e("API Call", response.body().toString());
                 } else {
@@ -127,25 +131,39 @@ public class ChatsAPI {
                     Log.e("API Call", response.body().toString());
                     responseAnswer.setValue("ok");
                 }
-
                 else{
                         int a = response.code();
-
                         responseAnswer.setValue(response.errorBody().toString());
                     Log.e("API Call","dfdfdf");
                     Log.e("API Call", responseAnswer.toString());
                      a = response.code();
                     }
-
-
                 }
-
-
             @Override
             public void onFailure(Call<PostChatUser> call, Throwable t) {
                 Log.e("API Call", "probleeeeem");
             }
         });
+    }
+
+    public void postMessages(String token , String id,String msg){
+        Call <PostMessagesByID> call = chatApi.postMessage(id,token,Map.of("msg",msg));
+        call.enqueue(new Callback<PostMessagesByID>() {
+            @Override
+            public void onResponse(Call<PostMessagesByID> call, Response<PostMessagesByID> response) {
+                if (response.isSuccessful()) {
+                    Log.e("API Call", response.body().toString());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PostMessagesByID> call, Throwable t) {
+
+            }
+        });
+
+
+
     }
 
 

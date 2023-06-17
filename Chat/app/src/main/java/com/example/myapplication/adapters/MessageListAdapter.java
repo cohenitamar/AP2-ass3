@@ -1,37 +1,29 @@
 package com.example.myapplication.adapters;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.myapplication.R;
-import com.example.myapplication.entities.Contact;
-import com.example.myapplication.entities.Message;
-import com.example.myapplication.entities.MessagesByID;
-import com.google.android.material.imageview.ShapeableImageView;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import com.example.myapplication.R;
+import com.example.myapplication.entities.MessagesByID;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import android.content.Context;
-import android.view.LayoutInflater;
 
 public class MessageListAdapter extends ArrayAdapter<MessagesByID> {
     LayoutInflater inflater;
     String me;
 
-    public MessageListAdapter(Context context, ArrayList<MessagesByID> messageList) {
+    public MessageListAdapter(Context context, ArrayList<MessagesByID> messageList,String username) {
         super(context, 0, messageList);
         this.inflater = LayoutInflater.from(context);
-        this.me = "Swiss";
+        this.me = username;
     }
 
     @NonNull

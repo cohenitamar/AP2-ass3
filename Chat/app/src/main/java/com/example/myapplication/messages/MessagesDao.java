@@ -6,7 +6,6 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.example.myapplication.entities.Message;
 import com.example.myapplication.entities.MessagesByID;
 
 import java.util.List;
@@ -19,7 +18,7 @@ public interface MessagesDao {
     List<MessagesByID> index();
 
     @Query("SELECT * FROM messagesByID WHERE id = :id")
-    MessagesByID get(int id);
+    List<MessagesByID> get(String id);
 
     @Insert
     void insert(MessagesByID... message);

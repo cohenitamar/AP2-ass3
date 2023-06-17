@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myapplication.ChatsAPI;
 import com.example.myapplication.R;
 import com.example.myapplication.SingletonDatabase;
 import com.example.myapplication.adapters.MessageListAdapter;
@@ -48,12 +49,15 @@ public class MessageActivity extends AppCompatActivity {
         Intent activityIntent = getIntent();
         String token = null;
         String chatID = null;
+        String username = null;
+
         if (activityIntent != null) {
             token = activityIntent.getStringExtra("token");
             chatID = activityIntent.getStringExtra("chatID");
+            username = activityIntent.getStringExtra("myUsername");
         }
 
-        this.viewModel = new MessagesViewModel(token);
+        this.viewModel = new MessagesViewModel(token,chatID);
         this.viewModel.getmRepository().setId(chatID);
 
 
@@ -61,10 +65,13 @@ public class MessageActivity extends AppCompatActivity {
             adapter.setMessages(messages);
         });
 
+        ChatsAPI x = new ChatsAPI();
+        x.postMessages(token,chatID,"itammamamaamr");
+
 
         this.messages = messagesDao.index();
         listView = findViewById(R.id.messageList);
-        adapter = new MessageListAdapter(getApplicationContext(), (ArrayList<MessagesByID>) this.messages);
+        adapter = new MessageListAdapter(getApplicationContext(), (ArrayList<MessagesByID>) this.messages,username);
         listView.setClickable(false);
         listView.setAdapter(adapter);
         listView.setSelection(adapter.getCount() - 1);

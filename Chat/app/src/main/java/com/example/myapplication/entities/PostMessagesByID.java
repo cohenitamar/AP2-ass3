@@ -5,12 +5,12 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity
-public class MessagesByID {
+public class PostMessagesByID {
 
     @PrimaryKey @NonNull
     private String id;
     private String created;
-    private Sender sender;
+    private ChatUser sender;
     private String content;
 
     public void setChatID(String chatID) {
@@ -39,11 +39,11 @@ public class MessagesByID {
         this.created = created;
     }
 
-    public Sender getSender() {
+    public ChatUser getSender() {
         return sender;
     }
 
-    public void setSender(Sender sender) {
+    public void setSender(ChatUser sender) {
         this.sender = sender;
     }
 
@@ -55,7 +55,7 @@ public class MessagesByID {
         this.content = content;
     }
 
-    public MessagesByID(String id, String created, Sender sender, String content) {
+    public PostMessagesByID(String id, String created, ChatUser sender, String content) {
         this.id = id;
         this.created = created;
         this.sender = sender;
