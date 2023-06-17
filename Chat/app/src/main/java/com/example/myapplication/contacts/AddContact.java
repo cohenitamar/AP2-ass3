@@ -54,11 +54,15 @@ public class AddContact extends AppCompatActivity {
             viewModel.addContact(user.getText().toString());
 
 
-/*            Contact contact = new Contact(new ChatUser(etItem.getText().toString(),
+/*
+
+            Contact contact = new Contact(new ChatUser(etItem.getText().toString(),
                     Integer.toString((int) (Math.random() * 9000 + 1000)),
                     "5"), new ChatMessage(Integer.toString((int) (Math.random() * 100 + 1)),
                     Integer.toString((int) (Math.random() * 9000000 + 1000000))));
-            contactsDao.insert(contact);*/
+            contactsDao.insert(contact);
+
+            */
 
             finish();
         });
