@@ -17,8 +17,8 @@ public interface MessagesDao {
     @Query("SELECT * FROM messagesByID")
     List<MessagesByID> index();
 
-    @Query("SELECT * FROM messagesByID WHERE id = :id")
-    List<MessagesByID> get(String id);
+    @Query("SELECT * FROM messagesByID WHERE chatID = :id")
+    List<MessagesByID> getMsgByChat(String id);
 
     @Insert
     void insert(MessagesByID... message);
@@ -28,5 +28,8 @@ public interface MessagesDao {
 
     @Delete
     void delete(MessagesByID... message);
+
+    @Query("DELETE FROM messagesByID")
+    void deleteAll();
 
 }

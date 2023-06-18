@@ -10,6 +10,9 @@ import com.example.myapplication.entities.Contact;
 import com.example.myapplication.entities.MessagesByID;
 import com.example.myapplication.entities.PostChatUser;
 import com.example.myapplication.entities.PostMessagesByID;
+import com.example.myapplication.entities.Sender;
+import com.example.myapplication.messages.MessageDB;
+import com.example.myapplication.messages.MessagesDao;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -94,7 +97,7 @@ public class ChatsAPI {
                 if (response.isSuccessful()) {
                     List<MessagesByID> mByID = response.body();
                     Collections.reverse(mByID);
-                    for(MessagesByID m : mByID) {
+                    for (MessagesByID m : mByID) {
                         m.setChatID(id);
                     }
                     messageListData.setValue(mByID);
@@ -130,15 +133,15 @@ public class ChatsAPI {
                     dao.insert(c);
                     Log.e("API Call", response.body().toString());
                     responseAnswer.setValue("ok");
-                }
-                else{
-                        int a = response.code();
-                        responseAnswer.setValue(response.errorBody().toString());
-                    Log.e("API Call","dfdfdf");
+                } else {
+                    int a = response.code();
+                    responseAnswer.setValue(response.errorBody().toString());
+                    Log.e("API Call", "dfdfdf");
                     Log.e("API Call", responseAnswer.toString());
-                     a = response.code();
-                    }
+                    a = response.code();
                 }
+            }
+
             @Override
             public void onFailure(Call<PostChatUser> call, Throwable t) {
                 Log.e("API Call", "probleeeeem");
@@ -146,12 +149,24 @@ public class ChatsAPI {
         });
     }
 
-    public void postMessages(String token , String id,String msg){
-        Call <PostMessagesByID> call = chatApi.postMessage(id,token,Map.of("msg",msg));
+    public void postMessages(MutableLiveData<List<MessagesByID>> messageListData, String token, String id, String msg) {
+        Call<PostMessagesByID> call = chatApi.postMessage(id, token, Map.of("msg", msg));
         call.enqueue(new Callback<PostMessagesByID>() {
             @Override
             public void onResponse(Call<PostMessagesByID> call, Response<PostMessagesByID> response) {
                 if (response.isSuccessful()) {
+                    PostMessagesByID newMsg = response.body();
+                    List<MessagesByID> list = messageListData.getValue();
+                    MessagesByID insert = new MessagesByID(newMsg.getId(), newMsg.getCreated(),
+                            new Sender(newMsg.getSender().getUsername()), newMsg.getContent());
+                    insert.setChatID(id);
+                    list.add(insert);
+                    MessageDB db = SingletonDatabase.getMessageInstance();
+                    MessagesDao dao = db.messageDao();
+                    dao.insert(insert);
+                    List<MessagesByID> liss = dao.getMsgByChat(id);
+                    int a = 4;
+                    messageListData.setValue(list);
                     Log.e("API Call", response.body().toString());
                 }
             }
@@ -161,7 +176,6 @@ public class ChatsAPI {
 
             }
         });
-
 
 
     }

@@ -35,7 +35,7 @@ public class ContactsViewModel extends ViewModel {
     }
 
     public void reload() {
-       // this.mRepository.reload();
+        this.mRepository.onReload();
     }
 
 }

@@ -24,7 +24,6 @@ public class ContactRepository {
         this.contactListData = new ContactListData();
         this.api = new ChatsAPI();
     }
-
     class ContactListData extends MutableLiveData<List<Contact>> {
 
         public ContactListData() {
@@ -50,4 +49,8 @@ public class ContactRepository {
         api.postChats(token,username);
 
     }
+    public void onReload(){
+        contactsDao.deleteAll();
+    }
+
 }
