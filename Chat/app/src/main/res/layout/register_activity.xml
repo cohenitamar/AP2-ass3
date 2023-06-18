@@ -40,24 +40,24 @@
         </LinearLayout>
 
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imageView"
-            android:layout_width="131dp"
-            android:layout_height="124dp"
-            android:layout_marginTop="14dp"
-            android:src="@drawable/nopictureuser"
-            app:civ_border_color="#FFFFFF"
-            app:civ_border_width="2dp" />
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profilePic"
+                android:layout_width="131dp"
+                android:layout_height="124dp"
+                android:layout_marginTop="14dp"
+                android:src="@drawable/nopictureuser"
+                app:civ_border_color="#FFFFFF"
+                app:civ_border_width="2dp" />
 
-    </LinearLayout>
+        </LinearLayout>
 
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="544dp"
+        android:layout_width="360dp"
+        android:layout_height="440dp"
         android:orientation="vertical"
         android:paddingStart="18dp"
-        android:paddingTop="92dp"
+        android:paddingTop="50dp"
         android:paddingEnd="70dp">
 
         <com.google.android.material.textfield.TextInputLayout
@@ -85,7 +85,7 @@
             android:layout_marginTop="24dp">
 
             <EditText
-                android:id="@+id/editTextText2"
+                android:id="@+id/lastNameInput"
                 android:layout_width="match_parent"
                 android:layout_height="49dp"
                 android:layout_centerHorizontal="true"
@@ -101,7 +101,7 @@
             android:layout_marginTop="24dp">
 
             <EditText
-                android:id="@+id/etUsername"
+                android:id="@+id/usernameInput"
                 android:layout_width="match_parent"
                 android:layout_height="49dp"
                 android:layout_centerHorizontal="true"
@@ -112,55 +112,61 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/password_text_input_layout"
-            app:passwordToggleEnabled="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp">
+            android:layout_marginTop="24dp"
+            app:passwordToggleEnabled="true">
 
             <EditText
-                android:id="@+id/etPassword"
+                android:id="@+id/passwordInput"
                 android:layout_width="match_parent"
                 android:layout_height="49dp"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:ems="10"
-                android:inputType="textPassword"
-                android:hint="@string/password" />
+                android:hint="@string/password"
+                android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/confPass_text_input_layout"
+            android:id="@+id/etConfPass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:passwordToggleEnabled="true"
+            android:layout_marginTop="24dp"
 
-            android:layout_marginTop="24dp">
+            app:passwordToggleEnabled="true">
 
             <EditText
-                android:id="@+id/etConfPass"
+                android:id="@+id/confirmPasswordInput"
                 android:layout_width="match_parent"
                 android:layout_height="49dp"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:ems="10"
-                android:inputType="textPassword"
-                android:hint="@string/confirm_password" />
+                android:hint="@string/confirm_password"
+                android:inputType="textPassword" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="311dp"
+        android:layout_height="79dp"
+        android:orientation="vertical">
+
         <Button
             android:id="@+id/nextButton"
-            android:layout_width="324dp"
+            android:layout_width="250dp"
             android:layout_height="51dp"
             android:layout_gravity="center"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="0dp"
             android:layout_marginBottom="40dp"
             android:backgroundTint="@color/minedarkblue"
             android:fontFamily="sans-serif-medium"
             android:text="@string/sign_up"
             android:textSize="18sp" />
-
     </LinearLayout>
 
 

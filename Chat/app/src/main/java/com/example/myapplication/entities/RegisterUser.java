@@ -3,7 +3,6 @@ package com.example.myapplication.entities;
 public class RegisterUser {
 
     private String username;
-
     private String password;
     private String displayName;
     private String profilePic;

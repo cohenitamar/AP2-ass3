@@ -43,8 +43,6 @@ public class LoginAPI {
 
     }
 
-
-
     public MutableLiveData<String> getResponseLiveData() {
         return responseLiveData;
     }
