@@ -34,13 +34,16 @@ public class MessagesViewModel extends ViewModel {
     public void add(Contact c) {
        // this.mRepository.add(c);
     }
+    public void addMsg( String id, String msg){
+        mRepository.addMsg(id,msg);
+    }
 
     public void delete(Contact c) {
        // this.mRepository.delete(c);
     }
 
     public void reload() {
-       // this.mRepository.reload();
+        this.mRepository.onReload();
     }
 
 }

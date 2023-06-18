@@ -13,6 +13,8 @@ public class MessagesByID {
     private Sender sender;
     private String content;
 
+    private String chatID;
+
     public void setChatID(String chatID) {
         this.chatID = chatID;
     }
@@ -20,8 +22,6 @@ public class MessagesByID {
     public String getChatID() {
         return chatID;
     }
-
-    private String chatID;
 
     public String getId() {
         return id;

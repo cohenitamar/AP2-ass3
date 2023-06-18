@@ -10,11 +10,9 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.myapplication.ChatsAPI;
 import com.example.myapplication.R;
 import com.example.myapplication.SingletonDatabase;
 import com.example.myapplication.adapters.MessageListAdapter;
-import com.example.myapplication.entities.Message;
 import com.example.myapplication.entities.MessagesByID;
 import com.example.myapplication.viewmodels.MessagesViewModel;
 import com.google.android.material.imageview.ShapeableImageView;
@@ -33,7 +31,7 @@ public class MessageActivity extends AppCompatActivity {
     private MessagesViewModel viewModel;
 
 
-
+    private String chatID;
     private MessagesDao messagesDao;
     private MessageDB db;
     @Override
@@ -41,14 +39,13 @@ public class MessageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chat_activity);
 
-        ///TODO I DONT THINK WE SHOULD ALLOW MAIN THREAD QUERIES IDK?
         this.db = SingletonDatabase.getMessageInstance(getApplicationContext());
 
         this.messagesDao = db.messageDao();
 
         Intent activityIntent = getIntent();
         String token = null;
-        String chatID = null;
+
         String username = null;
 
         if (activityIntent != null) {
@@ -63,13 +60,12 @@ public class MessageActivity extends AppCompatActivity {
 
         viewModel.get().observe(this, messages -> {
             adapter.setMessages(messages);
+            listView.smoothScrollToPosition(adapter.getCount() - 1);
         });
 
-        ChatsAPI x = new ChatsAPI();
-        x.postMessages(token,chatID,"itammamamaamr");
 
 
-        this.messages = messagesDao.index();
+        this.messages = new ArrayList<>();
         listView = findViewById(R.id.messageList);
         adapter = new MessageListAdapter(getApplicationContext(), (ArrayList<MessagesByID>) this.messages,username);
         listView.setClickable(false);
@@ -98,16 +94,13 @@ public class MessageActivity extends AppCompatActivity {
                     Date currentDateTime = new Date();
                     SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
                     String formattedDateTime = dateFormat.format(currentDateTime);
-                    Message msg = new Message("adfghasdfgh", "ME", "ADFGAD", formattedDateTime.toString(), text.getText().toString());
-                    /*
-                    messages.add(new Message("adfghasdfgh", "ME", "ADFGAD", formattedDateTime.toString(), text.getText().toString()));
-*/
-                    adapter.notifyDataSetChanged();
-                  /*  messagesDao.insert(msg);
+                   viewModel.addMsg(chatID,text.getText().toString());
+                    text.setText("");
+                                 /*  messagesDao.insert(msg);
                     text.setText("");
                     messages.clear();
                     messages.addAll(messagesDao.index());*/
-                    listView.smoothScrollToPosition(adapter.getCount() - 1);
+
                 }
 
             }
@@ -119,7 +112,7 @@ public class MessageActivity extends AppCompatActivity {
     protected void onResume(){
         super.onResume();
         this.messages.clear();
-        this.messages.addAll(this.messagesDao.index());
+        this.messages.addAll(this.messagesDao.getMsgByChat(chatID));
         this.adapter.notifyDataSetChanged();
 
     }

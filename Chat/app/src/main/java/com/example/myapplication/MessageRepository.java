@@ -1,5 +1,7 @@
 package com.example.myapplication;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -24,20 +26,24 @@ public class MessageRepository {
 
     String chatId;
 
+
+
     public MessageRepository(String token,String ChatId) {
+        this.chatId = ChatId;
         this.token = token;
         this.db = SingletonDatabase.getMessageInstance();
         this.messagesDao = db.messageDao();
         this.messageListData = new MessageListData();
         this.api = new ChatsAPI();
-        this.chatId = ChatId;
+
     }
 
     class MessageListData extends MutableLiveData<List<MessagesByID>> {
 
         public MessageListData() {
             super();
-            setValue(messagesDao.get(chatId));
+            Log.e("chatID",chatId);
+            setValue(messagesDao.getMsgByChat(chatId));
         }
 
         @Override
@@ -45,11 +51,20 @@ public class MessageRepository {
             super.onActive();
             new Thread(() -> {
                 api.getChatsByID(this, token, id);
+                List<MessagesByID> list = this.getValue();
             }).start();
         }
     }
 
     public LiveData<List<MessagesByID>> getAll() {
         return messageListData;
+    }
+
+
+    public void addMsg( String id, String msg){
+        api.postMessages(this.messageListData,token,id,msg);
+    }
+    public void onReload(){
+        messagesDao.deleteAll();
     }
 }

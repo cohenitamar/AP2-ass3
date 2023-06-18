@@ -55,7 +55,6 @@ public class AddContact extends AppCompatActivity {
 
 
 /*
-
             Contact contact = new Contact(new ChatUser(etItem.getText().toString(),
                     Integer.toString((int) (Math.random() * 9000 + 1000)),
                     "5"), new ChatMessage(Integer.toString((int) (Math.random() * 100 + 1)),
@@ -63,7 +62,6 @@ public class AddContact extends AppCompatActivity {
             contactsDao.insert(contact);
 
             */
-
             finish();
         });
 

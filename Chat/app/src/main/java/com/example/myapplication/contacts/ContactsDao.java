@@ -29,4 +29,7 @@ public interface ContactsDao {
     @Delete
     void delete(Contact... contact);
 
+    @Query("DELETE FROM contact")
+    void deleteAll();
+
 }

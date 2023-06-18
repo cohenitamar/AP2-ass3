@@ -73,7 +73,6 @@ public class ContactActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(ContactActivity.this, AddContact.class);
                 intent.putExtra("token", token);
-
                 startActivity(intent);
             }
         });
