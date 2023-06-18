@@ -28,6 +28,7 @@ public class Converter {
 
     }
 
+
     @TypeConverter
     public static String fromLastMessage(ChatMessage msg) {
         // Convert the ContactUserDetails object to a string representation (e.g., JSON)
@@ -43,6 +44,7 @@ public class Converter {
         Gson gson = new Gson();
         return gson.fromJson(msg, ChatMessage.class);
     }
+
 
     @TypeConverter
     public static String fromSender(Sender sender) {
