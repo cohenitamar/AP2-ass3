@@ -21,13 +21,17 @@ public interface ChatAPI {
     Call <List<Contact>> getChats(@Header("Authorization") String token);
 
     @GET("Chats/{id}/Messages")
-    Call <List<MessagesByID>> getChatsByID(@Header("Authorization") String token, @Path("id") String id);
+    Call <List<MessagesByID>> getChatsByID(@Header("Authorization") String token,
+                                           @Path("id") String id);
 
     @POST("Chats")
-    Call <PostChatUser> postChat(@Header("Authorization") String token, @Body Map<String, String> requestBody);
+    Call <PostChatUser> postChat(@Header("Authorization") String token,
+                                 @Body Map<String, String> requestBody);
 
     @POST("Chats/{id}/Messages")
-    Call <PostMessagesByID> postMessage(@Path("id") String id, @Header("Authorization") String token, @Body Map<String, String> requestBody);
+    Call <PostMessagesByID> postMessage(@Path("id") String id,
+                                        @Header("Authorization") String token,
+                                        @Body Map<String, String> requestBody);
 
 
 }

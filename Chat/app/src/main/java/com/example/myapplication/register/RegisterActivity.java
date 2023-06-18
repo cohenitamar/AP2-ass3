@@ -94,18 +94,12 @@ public class RegisterActivity extends AppCompatActivity {
 
                 String displayName = firstNameInput.getText().toString() + " " + lastNameInput.getText().toString();
 
-                //convert image to string
-                //get drawable
                 Drawable drawable = profilePic.getDrawable();
-                //drawable to bitmap
                 Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
-                //bitmap to byte array
                 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 50, byteArrayOutputStream);
                 byte[] byteArray = byteArrayOutputStream.toByteArray();
-                //byte array to string
                 String encodedProfilePic = Base64.encodeToString(byteArray, Base64.DEFAULT);
-
                 registerAPI.post(new RegisterUser(usernameInput.getText().toString(), passwordInput.getText().toString(), displayName, encodedProfilePic));
 
             }
