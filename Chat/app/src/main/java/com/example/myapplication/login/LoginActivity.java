@@ -15,6 +15,8 @@ import com.example.myapplication.LoginAPI;
 import com.example.myapplication.R;
 import com.example.myapplication.contacts.ContactActivity;
 import com.example.myapplication.entities.UserLogin;
+import com.example.myapplication.register.PasswordActivity;
+import com.example.myapplication.register.RegisterActivity;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -37,15 +39,23 @@ public class LoginActivity extends AppCompatActivity {
                 TextView password = findViewById(R.id.passwordInput);
                 usernameStr = username.getText().toString();
                 loginAPI.post(new UserLogin(username.getText().toString(),password.getText().toString()));
-
-
             }
         });
+
+        Button createAccount = findViewById(R.id.createAccount);
+        createAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
 
         loginAPI.getResponseLiveData().observe(this, new Observer<String>() {
             @Override
             public void onChanged(String s) {
-
                 if (s.equals("Not valid user/password.")){
                     Log.e("tall","check");
                 }
@@ -55,7 +65,6 @@ public class LoginActivity extends AppCompatActivity {
                     intent.putExtra("username",usernameStr);
                     startActivity(intent);
                 }
-
             }
         });
     }

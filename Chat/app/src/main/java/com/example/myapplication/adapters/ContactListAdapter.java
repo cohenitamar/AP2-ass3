@@ -2,6 +2,9 @@ package com.example.myapplication.adapters;
 
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +45,13 @@ public class ContactListAdapter extends ArrayAdapter<Contact> {
         TextView lastMsg = convertView.findViewById(R.id.contactLastMessage);
         TextView time = convertView.findViewById(R.id.contactLMDate);
 
-        imageView.setImageResource(R.drawable.profilepicture);
+
+        String encodedProfilePic = contact.getUser().getProfilePic();
+        byte[] decodedBytes = Base64.decode(encodedProfilePic, Base64.DEFAULT);
+        Bitmap decodedBitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+        imageView.setImageBitmap(decodedBitmap);
+
+
         userName.setText(contact.getUser().getDisplayName());
         String lm = "";
         String created = "";

@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
@@ -20,9 +21,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RegisterAPI {
 
     Retrofit retrofit;
-    UserRegisterAPI registerAPI;
+    static UserRegisterAPI registerAPI;
 
-    private MutableLiveData<String> responseLiveData;
+    private static MutableLiveData<String> responseLiveData;
 
 
     public RegisterAPI() {
@@ -48,7 +49,8 @@ public class RegisterAPI {
         return responseLiveData;
     }
 
-    public void post(RegisterUser user) {
+
+    public static void post(RegisterUser user) {
         Call<Void> call = registerAPI.register(user);
         call.enqueue(new Callback<Void>() {
             @Override
