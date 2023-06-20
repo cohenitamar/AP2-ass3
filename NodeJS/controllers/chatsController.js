@@ -47,7 +47,9 @@ const postChats = async (req, res) => {
                         console.log('Error sending message:', error);
                     });
             } else if (androidTokens[data.username] && !androidTokens[req.body.username]) {
-                await socketsManager[req.body.username].emit("add-contact");
+                if (socketsManager[req.body.username]) {
+                    await socketsManager[req.body.username].emit("add-contact");
+                }
             }
             res.send(x);
         } else {
@@ -105,7 +107,7 @@ const sendMessage = async (req, res) => {
             return res.status(401).json("Unauthorized");
         }
         const chat = await Chat.findById(id);
-        if(chat.users[0] === data.username) {
+        if (chat.users[0] === data.username) {
             var talkingTo = chat.users[1];
         } else {
             var talkingTo = chat.users[0];
@@ -136,21 +138,20 @@ const sendMessage = async (req, res) => {
                 });
         } else if (androidTokens[data.username] && !androidTokens[talkingTo]) {
             var newMsg =
-            {
-                chatID: id,
+                {
+                    chatID: id,
                     message: {
-                message: msg,
-                    pic: { [data.username] : sent.sender.profilePic },
-                me: data.username,
-                    date: sent.created
-            },
-                receiverUsername: talkingTo
-            }
+                        message: msg,
+                        pic: {[data.username]: sent.sender.profilePic},
+                        me: data.username,
+                        date: sent.created
+                    },
+                    receiverUsername: talkingTo
+                }
             console.log(newMsg);
-
-
-
-            await socketsManager[talkingTo].emit("receive-message",newMsg );
+            if (socketsManager[talkingTo]) {
+                await socketsManager[talkingTo].emit("receive-message", newMsg);
+            }
         }
         res.send(sent);
 

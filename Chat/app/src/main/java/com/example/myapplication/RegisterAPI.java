@@ -1,12 +1,18 @@
 package com.example.myapplication;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.util.Log;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.myapplication.entities.ChatUser;
 import com.example.myapplication.entities.RegisterUser;
+import com.google.android.material.imageview.ShapeableImageView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -56,17 +62,16 @@ public class RegisterAPI {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
-                        // Handle the non-empty response
-                        responseLiveData.setValue("true");
-                        // Handle the empty response
+                    // Handle the non-empty response
+                    responseLiveData.setValue("true");
+                    // Handle the empty response
                     // Handle the response string
                 } else {
 
                     int a = response.code();
-                    if(a == 409){
+                    if (a == 409) {
                         responseLiveData.setValue("User already exist.");
-                    }
-                    else{
+                    } else {
 
                         responseLiveData.setValue("Bad Request");
                     }
@@ -77,6 +82,38 @@ public class RegisterAPI {
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
+                // Handle the network or API call failure
+                String errorMessage = t.getMessage();
+                if (errorMessage != null) {
+                    Log.e("API Call1", "Error message: " + errorMessage);
+                } else {
+                    Log.e("API Call2", "Unknown error occurred.");
+                }
+            }
+        });
+    }
+
+    public static void getUser(String token, String username, ShapeableImageView img, TextView name) {
+        Call<ChatUser> call = registerAPI.get(token, username);
+        call.enqueue(new Callback<ChatUser>() {
+            @Override
+            public void onResponse(Call<ChatUser> call, Response<ChatUser> response) {
+                if (response.isSuccessful()) {
+                    ChatUser me = response.body();
+                    String encodedProfilePic = me.getProfilePic();
+                    encodedProfilePic = encodedProfilePic
+                            .replaceFirst("^data:image\\/.+;base64,", "");
+                    byte[] decodedBytes = Base64.decode(encodedProfilePic, Base64.DEFAULT);
+                    Bitmap decodedBitmap = BitmapFactory
+                            .decodeByteArray(decodedBytes, 0, decodedBytes.length);
+                    img.setImageBitmap(decodedBitmap);
+                    name.setText(me.getDisplayName());
+                }
+            }
+
+
+            @Override
+            public void onFailure(Call<ChatUser> call, Throwable t) {
                 // Handle the network or API call failure
                 String errorMessage = t.getMessage();
                 if (errorMessage != null) {

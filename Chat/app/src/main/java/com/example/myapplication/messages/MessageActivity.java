@@ -36,6 +36,7 @@ public class MessageActivity extends AppCompatActivity {
     private String chatID;
     private MessagesDao messagesDao;
     private MessageDB db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +57,7 @@ public class MessageActivity extends AppCompatActivity {
             username = activityIntent.getStringExtra("myUsername");
         }
 
-        this.viewModel = new MessagesViewModel(token,chatID);
+        this.viewModel = new MessagesViewModel(token, chatID);
         this.viewModel.getmRepository().setId(chatID);
 
 
@@ -73,7 +74,7 @@ public class MessageActivity extends AppCompatActivity {
 
         this.messages = new ArrayList<>();
         listView = findViewById(R.id.messageList);
-        adapter = new MessageListAdapter(getApplicationContext(), (ArrayList<MessagesByID>) this.messages,username);
+        adapter = new MessageListAdapter(getApplicationContext(), (ArrayList<MessagesByID>) this.messages, username);
         listView.setClickable(false);
         listView.setAdapter(adapter);
         listView.setSelection(adapter.getCount() - 1);
@@ -83,7 +84,7 @@ public class MessageActivity extends AppCompatActivity {
             String userName = activityIntent.getStringExtra("username");
             int profilePicture = activityIntent.getIntExtra("pic", 1);
             TextView user = findViewById(R.id.text_contactname);
-            ShapeableImageView shape =findViewById(R.id.imageView);
+            ShapeableImageView shape = findViewById(R.id.myprofileimage);
             shape.setImageResource(profilePicture);
             user.setText(userName);
 
@@ -93,14 +94,13 @@ public class MessageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 EditText text = findViewById(R.id.text_messageinput);
-                if(text.getText().toString().equals("")){
+                if (text.getText().toString().equals("")) {
                     text.setText("");
-                }
-                else {
+                } else {
                     Date currentDateTime = new Date();
                     SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
                     String formattedDateTime = dateFormat.format(currentDateTime);
-                   viewModel.addMsg(chatID,text.getText().toString());
+                    viewModel.addMsg(chatID, text.getText().toString());
                     text.setText("");
                                  /*  messagesDao.insert(msg);
                     text.setText("");
@@ -115,7 +115,7 @@ public class MessageActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
         this.messages.clear();
         this.messages.addAll(this.messagesDao.getMsgByChat(chatID));

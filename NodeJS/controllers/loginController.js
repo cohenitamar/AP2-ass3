@@ -25,6 +25,7 @@ const login = async (req, res) => {
 
 
 const getUser = async (req, res) => {
+    console.log(req)
     if (!req.params.username) {
         return res.status(400).json("Bad Request");
     }

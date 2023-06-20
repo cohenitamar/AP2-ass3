@@ -64,12 +64,7 @@ public class MyService extends FirebaseMessagingService {
                     message.getNotification().getBody()));
         }
     }
-    private String id;
-    private String created;
-    private Sender sender;
-    private String content;
 
-    private String chatID;
     private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             int importance = NotificationManager.IMPORTANCE_DEFAULT;

@@ -1,6 +1,7 @@
 package com.example.myapplication.register;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.lifecycle.Observer;
 
 import android.content.Intent;
@@ -22,6 +23,8 @@ import com.example.myapplication.login.LoginActivity;
 import com.example.myapplication.RegisterAPI;
 
 import java.io.ByteArrayOutputStream;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -37,24 +40,65 @@ public class RegisterActivity extends AppCompatActivity {
 
     private EditText confirmPasswordInput;
 
-    private void validateInput() {
-        String firstName = firstNameInput.getText().toString().trim();
-        String lastName = lastNameInput.getText().toString().trim();
+    private int validateInput() {
+        int flag = 0;
+        boolean isFirstNameValid = firstNameInput.length() > 0;
+        boolean isLastNameValid = lastNameInput.length() > 0;
 
-        if (firstName.length() == 0 && lastName.length() == 0) {
-            firstNameInput.setError("Please fill first name and last name");
-        }
-        if (firstName.length() == 0) {
-            firstNameInput.setError("Please fill first name");
+        //if length is 0 "or less"
+        if(!isFirstNameValid && !isLastNameValid){
+            Toast.makeText(activity, "Please enter your first and last name", Toast.LENGTH_SHORT).show();
+            return 1;
         } else {
-            firstNameInput.setError(null);
+            if (!isFirstNameValid) {
+                Toast.makeText(activity, "Please enter your first name", Toast.LENGTH_SHORT).show();
+                return 1;
+            } else if (!isLastNameValid) {
+                Toast.makeText(activity, "Please enter your last name", Toast.LENGTH_SHORT).show();
+                return 1;
+            }
+        }
+        if(usernameInput.length() < 3){
+            Toast.makeText(activity, "Username needs to be at least 3 letters long", Toast.LENGTH_SHORT).show();
+            return 1;
+        }
+        if(!passwordInput.getText().toString().equals(confirmPasswordInput.getText().toString())){
+            Toast.makeText(activity, "Passwords do not match", Toast.LENGTH_SHORT).show();
+            return 1;
         }
 
-        if (lastName.length() == 0) {
-            lastNameInput.setError("Please fill last name");
-        } else {
-            lastNameInput.setError(null);
+        if(passwordInput.length() < 8 ){
+            Toast.makeText(activity, "Password needs to be at least 8 letters long", Toast.LENGTH_SHORT).show();
+            return 1;
         }
+
+        // Check for uppercase letter
+        Pattern uppercasePattern = Pattern.compile("[A-Z]");
+        Matcher uppercaseMatcher = uppercasePattern.matcher(passwordInput.getText().toString());
+        boolean hasUppercase = uppercaseMatcher.find();
+        if (!hasUppercase) {
+            Toast.makeText(activity, "Password must contain uppercase letter", Toast.LENGTH_SHORT).show();
+            return 1;
+        }
+
+        // Check for lowercase letter
+        Pattern lowercasePattern = Pattern.compile("[a-z]");
+        Matcher lowercaseMatcher = lowercasePattern.matcher(passwordInput.getText().toString());
+        boolean hasLowercase = lowercaseMatcher.find();
+        if (!hasLowercase) {
+            Toast.makeText(activity, "Password must contain lowercase letter", Toast.LENGTH_SHORT).show();
+            return 1;
+        }
+
+        // Check for digit
+        Pattern digitPattern = Pattern.compile("[0-9]");
+        Matcher digitMatcher = digitPattern.matcher(passwordInput.getText().toString());
+        boolean hasDigit = digitMatcher.find();
+        if (!hasDigit) {
+            Toast.makeText(activity, "Password must contain a number", Toast.LENGTH_SHORT).show();
+            return 1;
+        }
+        return 0;
     }
 
     @Override
@@ -78,98 +122,62 @@ public class RegisterActivity extends AppCompatActivity {
                 passwordInput = findViewById(R.id.passwordInput);
                 confirmPasswordInput = findViewById(R.id.confirmPasswordInput);
 
-                boolean isFirstNameValid = firstNameInput.length() > 0;
-                boolean isLastNameValid = lastNameInput.length() > 0;
+                int isValidate = validateInput();
 
-                //if length is 0 "or less"
-                if(!isFirstNameValid && !isLastNameValid){
-                    Toast.makeText(activity, "Please enter your first and last name", Toast.LENGTH_SHORT).show();
-                } else {
-                    if (!isFirstNameValid) {
-                        Toast.makeText(activity, "Please enter your first name", Toast.LENGTH_SHORT).show();
-                    } else if (!isLastNameValid) {
-                        Toast.makeText(activity, "Please enter your last name", Toast.LENGTH_SHORT).show();
+                if (isValidate == 0) {
+                    String displayName = firstNameInput.getText().toString() + " " + lastNameInput.getText().toString();
+                    //convert image to string
+                    Drawable defaultDrawable = ResourcesCompat.getDrawable(getResources(), R.drawable.nopictureuser, null);
+                    //get drawable
+                    Drawable drawable = profilePic.getDrawable();
+                    if (drawable != null && drawable.getConstantState() != null && defaultDrawable != null && defaultDrawable.getConstantState() != null) {
+                        if (drawable.getConstantState().equals(defaultDrawable.getConstantState())) {
+                            // The user has not inserted a picture
+                            Toast.makeText(activity, "Please insert a picture", Toast.LENGTH_SHORT).show();
+                        } else {
+                            //drawable to bitmap
+                            Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
+                            //bitmap to byte array
+                            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                            bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+                            byte[] byteArray = byteArrayOutputStream.toByteArray();
+                            //byte array to string
+                            String encodedProfilePic = Base64.encodeToString(byteArray, Base64.DEFAULT);
+                            registerAPI.post(new RegisterUser(usernameInput.getText().toString(), passwordInput.getText().toString(), displayName, encodedProfilePic));
+                        }
                     }
                 }
+            }
+        });
 
-                String displayName = firstNameInput.getText().toString() + " " + lastNameInput.getText().toString();
+        profilePic = findViewById(R.id.profilePic);
 
-                Drawable drawable = profilePic.getDrawable();
-                Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
-                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 50, byteArrayOutputStream);
-                byte[] byteArray = byteArrayOutputStream.toByteArray();
-                String encodedProfilePic = Base64.encodeToString(byteArray, Base64.DEFAULT);
-                encodedProfilePic = "data:image/jpeg;base64, " + encodedProfilePic;
-                registerAPI.post(new RegisterUser(usernameInput.getText().toString(), passwordInput.getText().toString(), displayName, encodedProfilePic));
-
-
+        profilePic.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                //new intent opens to enable the user to choose a picture
+                Intent intent = new Intent(Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                //the requested is used later in the
+                startActivityForResult(intent, REQUEST_CODE);
             }
         });
 
 
-
-        //TODO: IS NECESSARY?
-
-        firstNameInput.addTextChangedListener(new TextWatcher() {
-            //nothing needs to happen
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                validateInput();
-            }
-        });
-
-        lastNameInput.addTextChangedListener(new TextWatcher() {
-            //nothing needs to happen
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                validateInput();
-            }
-        });
-
-         profilePic = findViewById(R.id.profilePic);
-
-         profilePic.setOnClickListener(new View.OnClickListener(){
-             @Override
-             public void onClick(View v){
-                 //new intent opens to enable the user to choose a picture
-                 Intent intent = new Intent(Intent.ACTION_PICK,
-                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                 //the requested is used later in the
-                 startActivityForResult(intent, REQUEST_CODE);
-             }
-         });
-
-
-         registerAPI.getResponseLiveData().observe(this, new Observer<String>(){
+        registerAPI.getResponseLiveData().observe(this, new Observer<String>(){
             @Override
             public void onChanged(String s) {
                 if (s.equals("true")){
-                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                    startActivity(intent);
-                }
-                else{
+                    Toast.makeText(activity, "User created successfully", Toast.LENGTH_SHORT).show();
+                    RegisterActivity.this.finish();
+                } else if (s.equals("User already exist.")) {
+                    Toast.makeText(activity, "User already exists", Toast.LENGTH_SHORT).show();
+                } else{
                     Toast.makeText(activity, "Could not create user", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-        }
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

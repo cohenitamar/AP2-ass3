@@ -164,6 +164,20 @@ public class ChatsAPI {
                 if (response.isSuccessful()) {
                     PostMessagesByID newMsg = response.body();
                     List<MessagesByID> list = messageListData.getValue();
+
+/*                    // split the string by the "T" character
+                    String[] dateTime = newMsg.getCreated().split("T");
+
+                    // split the date into its components
+                    String[] dateParts = dateTime[0].split("-");
+
+                    // split the time into its components
+                    String[] timeParts = dateTime[1].split(":|\\.");
+
+                    // rearrange the date and time components into the desired format
+                    String formattedDate = dateParts[2] + "." + dateParts[1] + "." + dateParts[0]
+                            + " " + timeParts[0] + ":" + timeParts[1];*/
+
                     MessagesByID insert = new MessagesByID(newMsg.getId(), newMsg.getCreated(),
                             new Sender(newMsg.getSender().getUsername()), newMsg.getContent());
                     insert.setChatID(id);
@@ -171,8 +185,6 @@ public class ChatsAPI {
                     MessageDB db = SingletonDatabase.getMessageInstance();
                     MessagesDao dao = db.messageDao();
                     dao.insert(insert);
-                    List<MessagesByID> liss = dao.getMsgByChat(id);
-                    int a = 4;
                     messageListData.setValue(list);
                     Log.e("API Call", response.body().toString());
                 }

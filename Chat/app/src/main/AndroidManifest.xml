@@ -30,6 +30,9 @@
             android:name=".contacts.ContactActivity"
             android:exported="false"></activity>
         <activity
+            android:name=".SettingsActivity"
+            android:exported="false"></activity>
+        <activity
             android:name=".messages.MessageActivity"
             android:exported="false"></activity>
         <activity
