@@ -46,8 +46,7 @@ public class MessageListAdapter extends ArrayAdapter<MessagesByID> {
         }
 
         content.setText(message.getContent());
-
-        date.setText(formatDate(message.getCreated()));
+        date.setText(message.getCreated());
 
         return convertView;
 
