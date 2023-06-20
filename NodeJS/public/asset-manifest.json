@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/static/css/main.78cbf058.css",
+    "main.js": "/static/js/main.a28abed5.js",
+    "static/media/chat_background.jpg": "/static/media/chat_background.5d51100506b68d9581d0.jpg",
+    "static/media/easter_egg.png": "/static/media/easter_egg.d0d1d09d533aee0fddf4.png",
+    "static/media/noPictureUserr.png": "/static/media/noPictureUserr.3d01250b70a3ef094e69.png",
+    "static/media/shared_background.jpg": "/static/media/shared_background.003aedb74659cf704649.jpg",
+    "index.html": "/index.html",
+    "main.78cbf058.css.map": "/static/css/main.78cbf058.css.map",
+    "main.a28abed5.js.map": "/static/js/main.a28abed5.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.78cbf058.css",
+    "static/js/main.a28abed5.js"
+  ]
+}
