@@ -48,6 +48,9 @@ public class MyService extends FirebaseMessagingService {
             notificationManager.notify(1, builder.build());
         }
         Map<String, String> data = message.getData();
+        if(data.isEmpty()){
+            return;
+        }
         if (data.get("action").equals("add_contact")) {
             contacts.postValue(message.getNotification().getBody());
         } else if (data.get("action").equals("send_message")) {
