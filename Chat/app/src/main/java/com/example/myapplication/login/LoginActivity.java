@@ -13,16 +13,20 @@ import androidx.lifecycle.Observer;
 
 import com.example.myapplication.LoginAPI;
 import com.example.myapplication.R;
+import com.example.myapplication.SingletonDatabase;
 import com.example.myapplication.contacts.ContactActivity;
+import com.example.myapplication.contacts.ContactDB;
+import com.example.myapplication.contacts.ContactsDao;
 import com.example.myapplication.entities.UserLogin;
 import com.example.myapplication.register.PasswordActivity;
 import com.example.myapplication.register.RegisterActivity;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 
 public class LoginActivity extends AppCompatActivity {
 
     String usernameStr;
-
+    String phoneToken;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,13 +36,27 @@ public class LoginActivity extends AppCompatActivity {
 
         Button btn = findViewById(R.id.buttonLogin);
 
+
+        FirebaseInstanceId.getInstance()
+                .getInstanceId()
+                .addOnSuccessListener(LoginActivity.this, instanceIdResult -> {
+                    phoneToken = instanceIdResult.getToken();
+                });
+
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 TextView username = findViewById(R.id.usernameInput);
                 TextView password = findViewById(R.id.passwordInput);
                 usernameStr = username.getText().toString();
-                loginAPI.post(new UserLogin(username.getText().toString(),password.getText().toString()));
+                loginAPI.post(new UserLogin(username.getText().toString(),
+                                password.getText().toString()), phoneToken);
+                SingletonDatabase
+                        .getMessageInstance(getApplicationContext())
+                        .messageDao().deleteAll();
+                SingletonDatabase
+                        .getContactInstance(getApplicationContext())
+                        .contactDao().deleteAll();
             }
         });
 

@@ -9,9 +9,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.MutableLiveData;
 
 import com.example.myapplication.R;
 import com.example.myapplication.SingletonDatabase;
+import com.example.myapplication.SingletonFirebase;
 import com.example.myapplication.adapters.MessageListAdapter;
 import com.example.myapplication.entities.MessagesByID;
 import com.example.myapplication.viewmodels.MessagesViewModel;
@@ -63,7 +65,11 @@ public class MessageActivity extends AppCompatActivity {
             listView.smoothScrollToPosition(adapter.getCount() - 1);
         });
 
+        MutableLiveData<MessagesByID> messagesFirebase = SingletonFirebase.getFirebaseMessageInstance();
 
+        messagesFirebase.observe(this, messages -> {
+            viewModel.add(messages);
+        });
 
         this.messages = new ArrayList<>();
         listView = findViewById(R.id.messageList);

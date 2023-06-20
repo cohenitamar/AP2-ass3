@@ -31,16 +31,16 @@ public class MessagesViewModel extends ViewModel {
         return this.messages;
     }
 
-    public void add(Contact c) {
-       // this.mRepository.add(c);
+    public void add(MessagesByID m) {
+       this.mRepository.add(m);
     }
     public void addMsg( String id, String msg){
         mRepository.addMsg(id,msg);
     }
 
-    public void delete(Contact c) {
+/*    public void delete(MessageByID m) {
        // this.mRepository.delete(c);
-    }
+    }*/
 
     public void reload() {
         this.mRepository.onReload();

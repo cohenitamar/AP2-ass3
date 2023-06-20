@@ -67,4 +67,10 @@ public class MessageRepository {
     public void onReload(){
         messagesDao.deleteAll();
     }
+
+    public void add(MessagesByID m){
+        List<MessagesByID> list = this.messageListData.getValue();
+        list.add(m);
+        this.messageListData.postValue(list);
+    }
 }

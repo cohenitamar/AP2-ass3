@@ -35,7 +35,7 @@ public class ContactRepository {
         protected void onActive() {
             super.onActive();
             new Thread(() -> {
-                api.get(this, token);
+                api.getChats(this, token);
             }).start();
         }
     }
@@ -50,7 +50,9 @@ public class ContactRepository {
 
     }
     public void onReload(){
-        contactsDao.deleteAll();
+        new Thread(() -> {
+            api.getChats(this.contactListData, token);
+        }).start();
     }
 
 }

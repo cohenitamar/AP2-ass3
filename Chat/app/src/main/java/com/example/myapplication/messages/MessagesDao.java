@@ -32,4 +32,5 @@ public interface MessagesDao {
     @Query("DELETE FROM messagesByID")
     void deleteAll();
 
+
 }

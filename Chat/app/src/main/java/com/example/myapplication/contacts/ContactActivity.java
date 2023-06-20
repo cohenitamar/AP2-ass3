@@ -9,16 +9,22 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.MutableLiveData;
 
 import com.example.myapplication.R;
 import com.example.myapplication.SingletonDatabase;
+import com.example.myapplication.SingletonFirebase;
 import com.example.myapplication.adapters.ContactListAdapter;
 import com.example.myapplication.entities.Contact;
+import com.example.myapplication.entities.MessagesByID;
 import com.example.myapplication.messages.MessageActivity;
 import com.example.myapplication.viewmodels.ContactsViewModel;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import kotlinx.coroutines.sync.Mutex;
 
 public class ContactActivity extends AppCompatActivity {
     ListView listView;
@@ -39,6 +45,8 @@ public class ContactActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.contact_activity);
 
+
+
         Intent activityIntent = getIntent();
 
         if (activityIntent != null) {
@@ -47,6 +55,10 @@ public class ContactActivity extends AppCompatActivity {
 
         }
         this.db = SingletonDatabase.getContactInstance(getApplicationContext());
+
+        MutableLiveData<String> contactsFirebase = SingletonFirebase.getFirebaseContactInstance();
+        MutableLiveData<MessagesByID> messagesFirebase = SingletonFirebase.getFirebaseMessageInstance();
+
 
         this.contactsDao = db.contactDao();
 
@@ -65,6 +77,14 @@ public class ContactActivity extends AppCompatActivity {
 
         listView.setAdapter(adapter);
         listView.setClickable(true);
+
+        contactsFirebase.observe(this, contacts -> {
+            viewModel.reload();
+        });
+
+        messagesFirebase.observe(this, messages -> {
+            viewModel.reload();
+        });
 
 
         Button addContact = findViewById(R.id.addcontact);
