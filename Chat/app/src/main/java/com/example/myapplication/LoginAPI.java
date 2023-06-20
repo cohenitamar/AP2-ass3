@@ -4,7 +4,9 @@ import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.myapplication.contacts.ContactActivity;
 import com.example.myapplication.entities.UserLogin;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -47,12 +49,15 @@ public class LoginAPI {
         return responseLiveData;
     }
 
-    public void post(UserLogin userLogin) {
-        Call<String> call = userAPI.login(userLogin);
+    public void post(UserLogin userLogin, String phoneToken) {
+
+
+        Call<String> call = userAPI.login(userLogin, phoneToken);
         call.enqueue(new Callback<>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 if (response.isSuccessful()) {
+
                    responseLiveData.setValue(response.body());
                     Log.e("API Call",response.body());
                     // Handle the response string

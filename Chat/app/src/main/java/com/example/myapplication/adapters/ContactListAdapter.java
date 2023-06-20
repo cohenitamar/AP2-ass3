@@ -47,8 +47,11 @@ public class ContactListAdapter extends ArrayAdapter<Contact> {
 
 
         String encodedProfilePic = contact.getUser().getProfilePic();
+        encodedProfilePic = encodedProfilePic
+                .replaceFirst("^data:image\\/.+;base64,", "");
         byte[] decodedBytes = Base64.decode(encodedProfilePic, Base64.DEFAULT);
-        Bitmap decodedBitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+        Bitmap decodedBitmap = BitmapFactory
+                .decodeByteArray(decodedBytes, 0, decodedBytes.length);
         imageView.setImageBitmap(decodedBitmap);
 
 

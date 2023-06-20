@@ -32,4 +32,6 @@ public interface ContactsDao {
     @Query("DELETE FROM contact")
     void deleteAll();
 
+
+
 }

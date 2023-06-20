@@ -23,15 +23,15 @@ public class ContactsViewModel extends ViewModel {
     }
 
     public void add(Contact c) {
-       // this.mRepository.add(c);
+        // this.mRepository.add(c);
     }
 
-    public void addContact (String username){
+    public void addContact(String username) {
         mRepository.addContact(username);
     }
 
     public void delete(Contact c) {
-       // this.mRepository.delete(c);
+        // this.mRepository.delete(c);
     }
 
     public void reload() {

@@ -59,13 +59,20 @@ public class ChatsAPI {
     }
 
 
-    public void get(MutableLiveData<List<Contact>> contactListData, String token) {
+    public void getChats(MutableLiveData<List<Contact>> contactListData, String token) {
         Call<List<Contact>> call = chatApi.getChats(token);
         call.enqueue(new Callback<List<Contact>>() {
             @Override
             public void onResponse(Call<List<Contact>> call,
                                    Response<List<Contact>> response) {
                 if (response.isSuccessful()) {
+                    ContactsDao dao = SingletonDatabase
+                            .getContactInstance()
+                            .contactDao();
+                    dao.deleteAll();
+                    for(Contact c : response.body()) {
+                        dao.insert(c);
+                    }
                     contactListData.setValue(response.body());
                     Log.e("API Call", response.body().toString());
                 } else {
