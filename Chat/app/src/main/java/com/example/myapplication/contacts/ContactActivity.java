@@ -9,11 +9,14 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.myapplication.R;
+import com.example.myapplication.SettingsActivity;
 import com.example.myapplication.SingletonDatabase;
 import com.example.myapplication.SingletonFirebase;
+import com.example.myapplication.SingletonLogout;
 import com.example.myapplication.adapters.ContactListAdapter;
 import com.example.myapplication.entities.Contact;
 import com.example.myapplication.entities.MessagesByID;
@@ -42,9 +45,9 @@ public class ContactActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.contact_activity);
-
 
 
         Intent activityIntent = getIntent();
@@ -86,6 +89,16 @@ public class ContactActivity extends AppCompatActivity {
             viewModel.reload();
         });
 
+        Button settings = findViewById(R.id.btn_settings);
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ContactActivity.this, SettingsActivity.class);
+                intent.putExtra("token", token);
+                intent.putExtra("username", username);
+                startActivity(intent);
+            }
+        });
 
         Button addContact = findViewById(R.id.addcontact);
         addContact.setOnClickListener(new View.OnClickListener() {
@@ -114,14 +127,15 @@ public class ContactActivity extends AppCompatActivity {
         });
 
 
-
-
     }
 
     @Override
     protected void onResume() {
         Log.e("oriiii", "onResume");
         super.onResume();
+        if (SingletonLogout.getLogoutInstance() == 1) {
+            finish();
+        }
         this.contacts.clear();
         this.contacts.addAll(this.contactsDao.index());
         this.adapter.notifyDataSetChanged();

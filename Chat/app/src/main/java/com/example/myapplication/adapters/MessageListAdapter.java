@@ -1,6 +1,7 @@
 package com.example.myapplication.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.example.myapplication.R;
 import com.example.myapplication.entities.MessagesByID;
@@ -47,6 +49,16 @@ public class MessageListAdapter extends ArrayAdapter<MessagesByID> {
 
         content.setText(message.getContent());
         date.setText(message.getCreated());
+
+        int currentNightMode = AppCompatDelegate.getDefaultNightMode();
+
+        if (currentNightMode == AppCompatDelegate.MODE_NIGHT_YES) {
+            date.setTextColor(Color.parseColor("#ffffff"));
+        } else {
+            date.setTextColor(Color.parseColor("#000000"));
+        }
+
+
 
         return convertView;
 

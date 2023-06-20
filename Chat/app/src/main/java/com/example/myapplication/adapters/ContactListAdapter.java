@@ -1,9 +1,12 @@
 package com.example.myapplication.adapters;
 
 
+import android.app.UiModeManager;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +17,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.example.myapplication.R;
 import com.example.myapplication.entities.Contact;
@@ -44,6 +48,18 @@ public class ContactListAdapter extends ArrayAdapter<Contact> {
         TextView userName = convertView.findViewById(R.id.contactName);
         TextView lastMsg = convertView.findViewById(R.id.contactLastMessage);
         TextView time = convertView.findViewById(R.id.contactLMDate);
+
+        int currentNightMode = AppCompatDelegate.getDefaultNightMode();
+
+        if (currentNightMode == AppCompatDelegate.MODE_NIGHT_YES) {
+            userName.setTextColor(Color.parseColor("#ffffff"));
+            lastMsg.setTextColor(Color.parseColor("#ffffff"));
+            time.setTextColor(Color.parseColor("#ffffff"));
+        } else {
+            userName.setTextColor(Color.parseColor("#000000"));
+            lastMsg.setTextColor(Color.parseColor("#000000"));
+            time.setTextColor(Color.parseColor("#000000"));
+        }
 
 
         String encodedProfilePic = contact.getUser().getProfilePic();

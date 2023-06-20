@@ -2,10 +2,12 @@ package com.example.myapplication.login;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -82,7 +84,8 @@ public class LoginActivity extends AppCompatActivity {
                     intent.putExtra("token","Bearer " + s);
                     intent.putExtra("username",usernameStr);
                     startActivity(intent);
-                }
+                    // Retrieve the saved state and set the button accordingly
+               }
             }
         });
     }
