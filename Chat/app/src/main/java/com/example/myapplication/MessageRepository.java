@@ -69,6 +69,7 @@ public class MessageRepository {
     }
 
     public void add(MessagesByID m){
+        messagesDao.insert(m);
         List<MessagesByID> list = this.messageListData.getValue();
         list.add(m);
         this.messageListData.postValue(list);
