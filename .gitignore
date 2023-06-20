@@ -16,3 +16,4 @@ Chat/.externalNativeBuild
 Chat/.cxx
 Chat/local.properties
 .idea/
+Chat/app/google-services.json
