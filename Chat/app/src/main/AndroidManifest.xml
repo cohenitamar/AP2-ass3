@@ -33,9 +33,6 @@
             android:name=".SettingsActivity"
             android:exported="false"></activity>
         <activity
-            android:name=".SettingsLoginActivity"
-            android:exported="false"></activity>
-        <activity
             android:name=".messages.MessageActivity"
             android:exported="false"></activity>
         <activity

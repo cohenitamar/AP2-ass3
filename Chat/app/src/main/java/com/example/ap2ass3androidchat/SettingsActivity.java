@@ -38,11 +38,21 @@ public class SettingsActivity extends AppCompatActivity {
         }
         registerAPI = new RegisterAPI();
 
+
+        Button logoutButton = findViewById(R.id.logoutbutton);
         ShapeableImageView img = findViewById(R.id.myprofileimage);
         TextView name = findViewById(R.id.myname);
-
-        registerAPI.getUser(token, username, img, name);
-
+        TextView myProfile = findViewById(R.id.myprofile);
+        if (token.equals("NO_TOKEN") && username.equals("NO_USERNAME")) {
+            img.setVisibility(View.GONE);
+            name.setVisibility(View.GONE);
+            logoutButton.setVisibility(View.GONE);
+            myProfile.setVisibility(View.GONE);
+        } else {
+/*            img.setVisibility(View.);
+            name.setVisibility(View.GONE);*/
+            registerAPI.getUser(token, username, img, name);
+        }
         nightSwitch = findViewById(R.id.nightswitch);
         sharedPref = getPreferences(Context.MODE_PRIVATE);
 
@@ -70,7 +80,6 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
-        Button logoutButton = findViewById(R.id.logoutbutton);
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,7 +87,7 @@ public class SettingsActivity extends AppCompatActivity {
                 SingletonNotification.toggleState();
                 finish();
             }
-        }) ;
+        });
 
     }
 
