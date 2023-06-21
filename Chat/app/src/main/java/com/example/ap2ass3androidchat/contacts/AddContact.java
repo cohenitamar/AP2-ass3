@@ -5,11 +5,13 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ap2ass3androidchat.R;
-import com.example.ap2ass3androidchat.SingletonDatabase;
+import com.example.ap2ass3androidchat.singleton.SingletonChatsAPI;
+import com.example.ap2ass3androidchat.singleton.SingletonDatabase;
 import com.example.ap2ass3androidchat.adapters.ContactListAdapter;
 import com.example.ap2ass3androidchat.entities.Contact;
 import com.example.ap2ass3androidchat.viewmodels.ContactsViewModel;
@@ -47,22 +49,19 @@ public class AddContact extends AppCompatActivity {
         }
         this.viewModel = new ContactsViewModel(token);
 
+        SingletonChatsAPI.getSingletonChatsAPIInstance().observe(this, str -> {
+            if (str.equals("ok"))
+                finish();
+            else {
+                Toast.makeText(getApplicationContext(), "Invalid username",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
 
         Button btnSave = findViewById(R.id.addcontactfinal);
         btnSave.setOnClickListener(view -> {
             EditText user = findViewById(R.id.contactinput);
             viewModel.addContact(user.getText().toString());
-
-
-/*
-            Contact contact = new Contact(new ChatUser(etItem.getText().toString(),
-                    Integer.toString((int) (Math.random() * 9000 + 1000)),
-                    "5"), new ChatMessage(Integer.toString((int) (Math.random() * 100 + 1)),
-                    Integer.toString((int) (Math.random() * 9000000 + 1000000))));
-            contactsDao.insert(contact);
-
-            */
-            finish();
         });
 
 

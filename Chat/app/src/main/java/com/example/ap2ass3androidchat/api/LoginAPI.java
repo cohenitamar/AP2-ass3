@@ -1,11 +1,12 @@
-package com.example.ap2ass3androidchat;
+package com.example.ap2ass3androidchat.api;
 
 import android.content.SharedPreferences;
 import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.ap2ass3androidchat.entities.UserLogin;
+import com.example.ap2ass3androidchat.singleton.SingletonURL;
+import com.example.ap2ass3androidchat.assistingclasses.UserLogin;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

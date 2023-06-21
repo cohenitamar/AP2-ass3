@@ -15,16 +15,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.ap2ass3androidchat.R;
-import com.example.ap2ass3androidchat.SingletonDatabase;
-import com.example.ap2ass3androidchat.SingletonFirebase;
+import com.example.ap2ass3androidchat.singleton.SingletonDatabase;
+import com.example.ap2ass3androidchat.singleton.SingletonFirebase;
 import com.example.ap2ass3androidchat.adapters.MessageListAdapter;
 import com.example.ap2ass3androidchat.entities.MessagesByID;
 import com.example.ap2ass3androidchat.viewmodels.MessagesViewModel;
 import com.google.android.material.imageview.ShapeableImageView;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class MessageActivity extends AppCompatActivity {

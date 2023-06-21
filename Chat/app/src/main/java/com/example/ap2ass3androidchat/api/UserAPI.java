@@ -1,7 +1,7 @@
-package com.example.ap2ass3androidchat;
+package com.example.ap2ass3androidchat.api;
 
 
-import com.example.ap2ass3androidchat.entities.UserLogin;
+import com.example.ap2ass3androidchat.assistingclasses.UserLogin;
 
 import retrofit2.Call;
 import retrofit2.http.Body;

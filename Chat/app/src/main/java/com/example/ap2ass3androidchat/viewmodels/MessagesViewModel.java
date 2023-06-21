@@ -3,7 +3,7 @@ package com.example.ap2ass3androidchat.viewmodels;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.ap2ass3androidchat.MessageRepository;
+import com.example.ap2ass3androidchat.repositories.MessageRepository;
 import com.example.ap2ass3androidchat.entities.MessagesByID;
 
 import java.util.List;
@@ -41,8 +41,11 @@ public class MessagesViewModel extends ViewModel {
        // this.mRepository.delete(c);
     }*/
 
+    public void setId( String id){
+        this.mRepository.setId(id);
+    }
+
     public void reload() {
         this.mRepository.onReload();
     }
-
 }

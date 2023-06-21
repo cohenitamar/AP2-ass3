@@ -1,13 +1,10 @@
-package com.example.ap2ass3androidchat.entities;
+package com.example.ap2ass3androidchat.assistingclasses;
 
-import androidx.annotation.NonNull;
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
+import com.example.ap2ass3androidchat.assistingclasses.ChatUser;
 
-@Entity
+
 public class PostMessagesByID {
 
-    @PrimaryKey @NonNull
     private String id;
     private String created;
     private ChatUser sender;

@@ -1,17 +1,20 @@
-package com.example.ap2ass3androidchat;
+package com.example.ap2ass3androidchat.api;
 
 import android.content.SharedPreferences;
 import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.ap2ass3androidchat.singleton.SingletonChatsAPI;
+import com.example.ap2ass3androidchat.singleton.SingletonDatabase;
+import com.example.ap2ass3androidchat.singleton.SingletonURL;
 import com.example.ap2ass3androidchat.contacts.ContactDB;
 import com.example.ap2ass3androidchat.contacts.ContactsDao;
 import com.example.ap2ass3androidchat.entities.Contact;
 import com.example.ap2ass3androidchat.entities.MessagesByID;
-import com.example.ap2ass3androidchat.entities.PostChatUser;
-import com.example.ap2ass3androidchat.entities.PostMessagesByID;
-import com.example.ap2ass3androidchat.entities.Sender;
+import com.example.ap2ass3androidchat.assistingclasses.PostChatUser;
+import com.example.ap2ass3androidchat.assistingclasses.PostMessagesByID;
+import com.example.ap2ass3androidchat.assistingclasses.Sender;
 import com.example.ap2ass3androidchat.messages.MessageDB;
 import com.example.ap2ass3androidchat.messages.MessagesDao;
 import com.google.gson.Gson;
@@ -34,8 +37,10 @@ public class ChatsAPI {
     Retrofit retrofit;
     ChatAPI chatApi;
 
+    MutableLiveData<String> responseLiveData;
 
-    private MutableLiveData<String> responseAnswer;
+    MutableLiveData<String> responseAnswer;
+
 
     public ChatsAPI() {
 
@@ -58,33 +63,15 @@ public class ChatsAPI {
 
         chatApi = retrofit.create(ChatAPI.class);
 
-        responseAnswer = new MutableLiveData<>();
-
-    }
-
-    public void setURL() {
-
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor(interceptor).build();
-
-        Gson gson = new GsonBuilder()
-                .setLenient()
-                .create();
-
-        SharedPreferences pref = SingletonURL.getURLInstance();
-        String URL = pref.getString("URL", "http://10.0.2.2:5000");
-
-        retrofit = new Retrofit.Builder().baseUrl(URL + "/api/")
-                .addConverterFactory(GsonConverterFactory.create(gson)).client(client)
-                .build();
-
-        chatApi = retrofit.create(ChatAPI.class);
+        responseAnswer = SingletonChatsAPI.getSingletonChatsAPIInstance();
+        responseLiveData = new MutableLiveData<>();
 
     }
 
 
+    public MutableLiveData<String> getResponseLiveData() {
+        return responseLiveData;
+    }
 
     public void getChats(MutableLiveData<List<Contact>> contactListData, String token) {
         Call<List<Contact>> call = chatApi.getChats(token);
@@ -109,6 +96,7 @@ public class ChatsAPI {
                         dao.insert(c);
                     }
                     contactListData.setValue(list);
+                    responseLiveData.setValue("bla");
                     Log.e("API Call", response.body().toString());
                 } else {
                     Log.e("API Call", "faillogin");
@@ -177,11 +165,7 @@ public class ChatsAPI {
                     Log.e("API Call", response.body().toString());
                     responseAnswer.setValue("ok");
                 } else {
-                    int a = response.code();
-                    responseAnswer.setValue(response.errorBody().toString());
-                    Log.e("API Call", "dfdfdf");
-                    Log.e("API Call", responseAnswer.toString());
-                    a = response.code();
+                    responseAnswer.setValue("invalid");
                 }
             }
 

@@ -38,7 +38,7 @@
     <string name="_24_10_2020_13_23">24/10/2020 13:23</string>
     <string name="settings">Settings</string>
     <string name="my_profile">My Profile:</string>
-    <string name="server_url">Server URL</string>
+    <string name="server_url">http(s)://URL:PORT</string>
     <string name="save">Save</string>
     <string name="logout">Logout</string>
 </resources>
