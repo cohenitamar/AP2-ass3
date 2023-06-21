@@ -72,7 +72,7 @@ public class MessageActivity extends AppCompatActivity {
         MutableLiveData<MessagesByID> messagesFirebase = SingletonFirebase.getFirebaseMessageInstance();
 
         messagesFirebase.observe(this, messages -> {
-                viewModel.add(messages);
+            viewModel.add(messages);
         });
 
         this.messages = new ArrayList<>();
@@ -88,12 +88,16 @@ public class MessageActivity extends AppCompatActivity {
             String encodedProfilePic = activityIntent.getStringExtra("pic");
             TextView user = findViewById(R.id.text_contactname);
             ShapeableImageView shape = findViewById(R.id.myprofileimage);
-            encodedProfilePic = encodedProfilePic
-                    .replaceFirst("^data:image\\/.+;base64,", "");
-            byte[] decodedBytes = Base64.decode(encodedProfilePic, Base64.DEFAULT);
-            Bitmap decodedBitmap = BitmapFactory
-                    .decodeByteArray(decodedBytes, 0, decodedBytes.length);
-            shape.setImageBitmap(decodedBitmap);
+            if (encodedProfilePic.equals("/static/media/easter_egg.d0d1d09d533aee0fddf4.png")) {
+                shape.setImageResource(R.drawable.easter_egg);
+            } else {
+                encodedProfilePic = encodedProfilePic
+                        .replaceFirst("^data:image\\/.+;base64,", "");
+                byte[] decodedBytes = Base64.decode(encodedProfilePic, Base64.DEFAULT);
+                Bitmap decodedBitmap = BitmapFactory
+                        .decodeByteArray(decodedBytes, 0, decodedBytes.length);
+                shape.setImageBitmap(decodedBitmap);
+            }
             user.setText(userName);
 
         }
