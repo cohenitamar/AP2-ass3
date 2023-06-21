@@ -29,6 +29,10 @@ public class MyService extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(@NonNull RemoteMessage message) {
+        if (!SingletonNotification.getLogoutInstance()) {
+            return;
+        }
+
         MutableLiveData<String> contacts = SingletonFirebase.getFirebaseContactInstance();
         MutableLiveData<MessagesByID> messages = SingletonFirebase.getFirebaseMessageInstance();
         if (message.getNotification() != null) {
@@ -43,7 +47,7 @@ public class MyService extends FirebaseMessagingService {
             notificationManager.notify(1, builder.build());
         }
         Map<String, String> data = message.getData();
-        if(data.isEmpty()){
+        if (data.isEmpty()) {
             return;
         }
         if (data.get("action").equals("add_contact")) {

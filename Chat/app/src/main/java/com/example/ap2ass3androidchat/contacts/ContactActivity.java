@@ -116,7 +116,7 @@ public class ContactActivity extends AppCompatActivity {
                 intent.putExtra("username", clickedContact.getUser().getDisplayName());
                 intent.putExtra("token", token);
                 intent.putExtra("myUsername", username);
-                intent.putExtra("pic", R.drawable.profilepicture);
+                intent.putExtra("pic", clickedContact.getUser().getProfilePic());
                 startActivity(intent);
             }
 
