@@ -75,6 +75,7 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 SingletonLogout.setState(1);
+                SingletonNotification.toggleState();
                 finish();
             }
         }) ;

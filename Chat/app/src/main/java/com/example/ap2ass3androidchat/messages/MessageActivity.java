@@ -1,7 +1,10 @@
 package com.example.ap2ass3androidchat.messages;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -82,10 +85,15 @@ public class MessageActivity extends AppCompatActivity {
 
         if (activityIntent != null) {
             String userName = activityIntent.getStringExtra("username");
-            int profilePicture = activityIntent.getIntExtra("pic", 1);
+            String encodedProfilePic = activityIntent.getStringExtra("pic");
             TextView user = findViewById(R.id.text_contactname);
             ShapeableImageView shape = findViewById(R.id.myprofileimage);
-            shape.setImageResource(profilePicture);
+            encodedProfilePic = encodedProfilePic
+                    .replaceFirst("^data:image\\/.+;base64,", "");
+            byte[] decodedBytes = Base64.decode(encodedProfilePic, Base64.DEFAULT);
+            Bitmap decodedBitmap = BitmapFactory
+                    .decodeByteArray(decodedBytes, 0, decodedBytes.length);
+            shape.setImageBitmap(decodedBitmap);
             user.setText(userName);
 
         }

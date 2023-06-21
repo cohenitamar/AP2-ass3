@@ -13,6 +13,8 @@ import androidx.lifecycle.Observer;
 
 import com.example.ap2ass3androidchat.LoginAPI;
 import com.example.ap2ass3androidchat.R;
+import com.example.ap2ass3androidchat.SingletonLogout;
+import com.example.ap2ass3androidchat.SingletonNotification;
 import com.example.ap2ass3androidchat.SingletonDatabase;
 import com.example.ap2ass3androidchat.contacts.ContactActivity;
 import com.example.ap2ass3androidchat.entities.UserLogin;
@@ -24,6 +26,7 @@ public class LoginActivity extends AppCompatActivity {
 
     String usernameStr;
     String phoneToken;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +36,7 @@ public class LoginActivity extends AppCompatActivity {
 
         Button btn = findViewById(R.id.buttonLogin);
 
-
+        SingletonNotification.getLogoutInstance();
         FirebaseInstanceId.getInstance()
                 .getInstanceId()
                 .addOnSuccessListener(LoginActivity.this, instanceIdResult -> {
@@ -47,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
                 TextView password = findViewById(R.id.passwordInput);
                 usernameStr = username.getText().toString();
                 loginAPI.post(new UserLogin(username.getText().toString(),
-                                password.getText().toString()), phoneToken);
+                        password.getText().toString()), phoneToken);
                 SingletonDatabase
                         .getMessageInstance(getApplicationContext())
                         .messageDao().deleteAll();
@@ -67,20 +70,19 @@ public class LoginActivity extends AppCompatActivity {
         });
 
 
-
         loginAPI.getResponseLiveData().observe(this, new Observer<String>() {
             @Override
             public void onChanged(String s) {
-                if (s.equals("Not valid user/password.")){
-                    Log.e("tall","check");
-                }
-                else{
+                if (s.equals("Not valid user/password.")) {
+                    Log.e("tall", "check");
+                } else {
                     Intent intent = new Intent(LoginActivity.this, ContactActivity.class);
-                    intent.putExtra("token","Bearer " + s);
-                    intent.putExtra("username",usernameStr);
+                    intent.putExtra("token", "Bearer " + s);
+                    intent.putExtra("username", usernameStr);
                     startActivity(intent);
-                    // Retrieve the saved state and set the button accordingly
-               }
+                    SingletonLogout.setState(0);
+                    SingletonNotification.toggleState();
+                }
             }
         });
     }

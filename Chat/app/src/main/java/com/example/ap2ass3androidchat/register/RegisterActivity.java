@@ -136,7 +136,7 @@ public class RegisterActivity extends AppCompatActivity {
                             Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
                             //bitmap to byte array
                             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                            bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+                            bitmap.compress(Bitmap.CompressFormat.JPEG, 50, byteArrayOutputStream);
                             byte[] byteArray = byteArrayOutputStream.toByteArray();
                             //byte array to string
                             String encodedProfilePic = Base64.encodeToString(byteArray, Base64.DEFAULT);
