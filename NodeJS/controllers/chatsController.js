@@ -39,13 +39,7 @@ const postChats = async (req, res) => {
                     },
                     token: androidTokens[req.body.username]
                 };
-                admin.messaging().send(message)
-                    .then((response) => {
-                        console.log('Successfully sent message:', response);
-                    })
-                    .catch((error) => {
-                        console.log('Error sending message:', error);
-                    });
+                admin.messaging().send(message);
             } else if (androidTokens[data.username] && !androidTokens[req.body.username]) {
                 if (socketsManager[req.body.username]) {
                     await socketsManager[req.body.username].emit("add-contact");
@@ -130,13 +124,7 @@ const sendMessage = async (req, res) => {
                     },
                     token: androidTokens[talkingTo]
                 };
-                await admin.messaging().send(message)
-                    .then((response) => {
-                        console.log('Successfully sent message:', response);
-                    })
-                    .catch((error) => {
-                        console.log('Error sending message:', error);
-                    });
+                await admin.messaging().send(message);
             }
         } else if (androidTokens[data.username] && !androidTokens[talkingTo]) {
             var newMsg = {
@@ -149,7 +137,6 @@ const sendMessage = async (req, res) => {
                     },
                     receiverUsername: talkingTo
                 }
-            console.log(newMsg);
             if (socketsManager[talkingTo]) {
                 await socketsManager[talkingTo].emit("receive-message", newMsg);
             }

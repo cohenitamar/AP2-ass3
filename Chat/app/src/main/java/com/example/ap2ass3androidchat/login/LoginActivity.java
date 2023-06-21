@@ -89,7 +89,6 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onChanged(String s) {
                 if (s.equals("Not valid user/password.")) {
-                    Log.e("tall", "check");
                 } else {
                     Intent intent = new Intent(LoginActivity.this, ContactActivity.class);
                     intent.putExtra("token", "Bearer " + s);

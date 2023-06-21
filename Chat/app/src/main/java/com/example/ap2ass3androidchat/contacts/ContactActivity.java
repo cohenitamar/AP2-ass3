@@ -99,8 +99,6 @@ public class ContactActivity extends AppCompatActivity {
                 new Thread(() -> {
                     for (MessagesByID m : messagesByIDS){
                         msgDao.insert(m);
-                        Log.e("msg",m.getContent());
-                        Log.e("msg",m.getChatID());
                     }
                 }).start();
             }
@@ -176,7 +174,6 @@ public class ContactActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        Log.e("oriiii", "onResume");
         super.onResume();
         if (SingletonLogout.getLogoutInstance() == 1) {
             finish();

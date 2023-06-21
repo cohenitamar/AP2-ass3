@@ -115,7 +115,6 @@ const sendMessage = async (username, string, id) => {
         }
 
     } catch (error) {
-        console.log(error)
         return -10;
     }
 }

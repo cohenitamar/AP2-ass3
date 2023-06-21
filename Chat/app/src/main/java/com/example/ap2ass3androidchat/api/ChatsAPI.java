@@ -97,9 +97,6 @@ public class ChatsAPI {
                     }
                     contactListData.setValue(list);
                     responseLiveData.setValue("bla");
-                    Log.e("API Call", response.body().toString());
-                } else {
-                    Log.e("API Call", "faillogin");
                 }
             }
 
@@ -107,11 +104,6 @@ public class ChatsAPI {
             public void onFailure(Call<List<Contact>> call, Throwable t) {
                 // Handle the network or API call failure
                 String errorMessage = t.getMessage();
-                if (errorMessage != null) {
-                    Log.e("API Call", "Error message: " + errorMessage);
-                } else {
-                    Log.e("API Call", "Unknown error occurred.");
-                }
             }
         });
     }
@@ -132,9 +124,6 @@ public class ChatsAPI {
                         m.setCreated(formatDate(m.getCreated()));
                     }
                     messageListData.setValue(mByID);
-                    Log.e("API Call", response.body().toString());
-                } else {
-                    Log.e("API Call", "faillogin");
                 }
             }
 
@@ -142,11 +131,6 @@ public class ChatsAPI {
             public void onFailure(Call<List<MessagesByID>> call, Throwable t) {
                 // Handle the network or API call failure
                 String errorMessage = t.getMessage();
-                if (errorMessage != null) {
-                    Log.e("API Call", "Error message: " + errorMessage);
-                } else {
-                    Log.e("API Call", "Unknown error occurred.");
-                }
             }
         });
     }
@@ -162,7 +146,6 @@ public class ChatsAPI {
                     PostChatUser p = response.body();
                     Contact c = new Contact(p.getId(), p.getUser(), null);
                     dao.insert(c);
-                    Log.e("API Call", response.body().toString());
                     responseAnswer.setValue("ok");
                 } else {
                     responseAnswer.setValue("invalid");
@@ -171,7 +154,6 @@ public class ChatsAPI {
 
             @Override
             public void onFailure(Call<PostChatUser> call, Throwable t) {
-                Log.e("API Call", "probleeeeem");
             }
         });
     }
@@ -192,7 +174,6 @@ public class ChatsAPI {
                     MessagesDao dao = db.messageDao();
                     dao.insert(insert);
                     messageListData.setValue(list);
-                    Log.e("API Call", response.body().toString());
                 }
             }
 

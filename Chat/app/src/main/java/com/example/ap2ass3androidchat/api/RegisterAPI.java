@@ -100,7 +100,6 @@ public class RegisterAPI {
 
                         responseLiveData.setValue("Bad Request");
                     }
-                    Log.e("API Call3", responseLiveData.toString());
                 }
             }
 
@@ -109,11 +108,7 @@ public class RegisterAPI {
             public void onFailure(Call<Void> call, Throwable t) {
                 // Handle the network or API call failure
                 String errorMessage = t.getMessage();
-                if (errorMessage != null) {
-                    Log.e("API Call1", "Error message: " + errorMessage);
-                } else {
-                    Log.e("API Call2", "Unknown error occurred.");
-                }
+
             }
         });
     }
@@ -146,11 +141,7 @@ public class RegisterAPI {
             public void onFailure(Call<ChatUser> call, Throwable t) {
                 // Handle the network or API call failure
                 String errorMessage = t.getMessage();
-                if (errorMessage != null) {
-                    Log.e("API Call1", "Error message: " + errorMessage);
-                } else {
-                    Log.e("API Call2", "Unknown error occurred.");
-                }
+
             }
         });
     }
