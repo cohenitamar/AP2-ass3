@@ -16,8 +16,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import com.example.ap2ass3androidchat.R;
+import com.example.ap2ass3androidchat.SettingsLoginActivity;
 import com.example.ap2ass3androidchat.entities.RegisterUser;
 import com.example.ap2ass3androidchat.RegisterAPI;
+import com.example.ap2ass3androidchat.login.LoginActivity;
 
 import java.io.ByteArrayOutputStream;
 import java.util.regex.Matcher;
@@ -136,7 +138,7 @@ public class RegisterActivity extends AppCompatActivity {
                             Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
                             //bitmap to byte array
                             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                            bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+                            bitmap.compress(Bitmap.CompressFormat.JPEG, 50, byteArrayOutputStream);
                             byte[] byteArray = byteArrayOutputStream.toByteArray();
                             //byte array to string
                             String encodedProfilePic = Base64.encodeToString(byteArray, Base64.DEFAULT);
@@ -144,6 +146,15 @@ public class RegisterActivity extends AppCompatActivity {
                         }
                     }
                 }
+            }
+        });
+
+        Button settings = findViewById(R.id.btn_settings);
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RegisterActivity.this, SettingsLoginActivity.class);
+                startActivity(intent);
             }
         });
 

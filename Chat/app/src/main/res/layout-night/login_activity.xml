@@ -7,16 +7,33 @@
     android:background="@drawable/login_night_horizonal"
     android:orientation="vertical">
 
+    <Button
+        android:id="@+id/btn_settings"
+        android:layout_width="wrap_content"
+        android:layout_height="47dp"
+        android:layout_weight="1"
+        android:backgroundTint="@color/transparent"
+        android:layout_gravity="right"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        app:cornerRadius="0dp"
+        app:icon="@drawable/ic_settings"
+        app:iconGravity="end"
+        app:iconPadding="0dp"
+        app:iconSize="32dp"
+        app:iconTint="#FFFFFF" />
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="178dp" />
+        android:layout_height="93dp" />
 
     <!--    </LinearLayout>-->
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="147dp"
+        android:layout_height="105dp"
         android:gravity="center_vertical|center"
         android:text="@string/welcome_with_spaces"
         android:textColor="@color/white"
@@ -40,12 +57,12 @@
             <EditText
                 android:id="@+id/usernameInput"
                 android:layout_width="match_parent"
-                android:layout_height="49dp"
+                android:layout_height="52dp"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:textStyle="bold"
                 android:ems="10"
-                android:hint="@string/username" />
+                android:hint="@string/username"
+                android:textStyle="bold" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -58,13 +75,13 @@
             <EditText
                 android:id="@+id/passwordInput"
                 android:layout_width="match_parent"
-                android:layout_height="49dp"
+                android:layout_height="52dp"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:ems="10"
                 android:hint="@string/password"
-                android:textStyle="bold"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:textStyle="bold" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -76,9 +93,9 @@
             android:layout_marginTop="40dp"
             android:layout_marginBottom="0dp"
             android:backgroundTint="@color/lightBlue"
-            android:textColor="@color/black"
             android:fontFamily="sans-serif-medium"
             android:text="@string/login"
+            android:textColor="@color/black"
             android:textSize="18sp" />
 
         <Button
@@ -87,8 +104,8 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/black"
             android:text="Create an account"
-            android:textSize="18dp"
             android:textColor="@color/white"
+            android:textSize="18dp"
             android:textStyle="italic" />
 
 

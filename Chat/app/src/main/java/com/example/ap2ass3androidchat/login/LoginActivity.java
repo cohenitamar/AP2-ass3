@@ -13,6 +13,8 @@ import androidx.lifecycle.Observer;
 
 import com.example.ap2ass3androidchat.LoginAPI;
 import com.example.ap2ass3androidchat.R;
+import com.example.ap2ass3androidchat.SettingsActivity;
+import com.example.ap2ass3androidchat.SettingsLoginActivity;
 import com.example.ap2ass3androidchat.SingletonDatabase;
 import com.example.ap2ass3androidchat.contacts.ContactActivity;
 import com.example.ap2ass3androidchat.entities.UserLogin;
@@ -39,6 +41,15 @@ public class LoginActivity extends AppCompatActivity {
                 .addOnSuccessListener(LoginActivity.this, instanceIdResult -> {
                     phoneToken = instanceIdResult.getToken();
                 });
+
+        Button settings = findViewById(R.id.btn_settings);
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, SettingsLoginActivity.class);
+                startActivity(intent);
+            }
+        });
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
