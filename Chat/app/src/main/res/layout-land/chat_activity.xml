@@ -43,9 +43,10 @@
                 android:gravity="center_vertical"
                 android:maxLines="1"
                 android:paddingStart="16dp"
-                android:text="Steve Jobs"
+                android:text="@string/steve_jobs"
                 android:textColor="#FFFFFF"
-                android:textSize="24sp" />
+                android:textSize="24sp"
+                tools:ignore="RtlSymmetry" />
         </LinearLayout>
 
         <ListView
@@ -74,12 +75,12 @@
                 android:backgroundTint="#00FFFFFF"
                 android:ems="10"
                 android:gravity="center_vertical"
-                android:hint="Type your message..."
+                android:hint="@string/steve_jobs"
                 android:inputType="text"
                 android:maxLines="6"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
-                tools:ignore="VisualLintTextFieldSize" />
+                tools:ignore="NestedWeights,VisualLintTextFieldSize" />
 
             <Button
                 android:id="@+id/button"
@@ -98,9 +99,6 @@
                 app:iconGravity="textStart"
                 app:iconPadding="0dp"
                 app:iconTint="#FFFFFF" />
-
-
         </LinearLayout>
-
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

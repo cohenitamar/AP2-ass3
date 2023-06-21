@@ -10,10 +10,10 @@
     <Button
         android:id="@+id/btn_settings"
         android:layout_width="wrap_content"
-        android:layout_height="47dp"
+        android:layout_height="0dp"
         android:layout_weight="1"
         android:backgroundTint="@color/transparent"
-        android:layout_gravity="right"
+        android:layout_gravity="end"
         android:insetTop="0dp"
         android:insetBottom="0dp"
         android:textColor="#FFFFFF"
@@ -29,15 +29,13 @@
         android:layout_width="match_parent"
         android:layout_height="93dp" />
 
-    <!--    </LinearLayout>-->
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="105dp"
         android:gravity="center_vertical|center"
         android:text="@string/welcome_with_spaces"
         android:textColor="@color/white"
-        android:textSize="40dp"
+        android:textSize="40sp"
         android:textStyle="bold" />
 
     <LinearLayout
@@ -103,9 +101,9 @@
             android:layout_width="281dp"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/black"
-            android:text="Create an account"
+            android:text="@string/create_an_account"
             android:textColor="@color/white"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:textStyle="italic" />
 
 
