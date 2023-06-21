@@ -3,6 +3,11 @@ package com.example.ap2ass3androidchat.entities;
 public class ChatMessage {
 
     private  String id;
+
+    public void setCreated(String created) {
+        this.created = created;
+    }
+
     private  String created;
 
     public String getId() {

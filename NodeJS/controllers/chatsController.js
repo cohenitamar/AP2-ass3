@@ -123,28 +123,45 @@ const sendMessage = async (req, res) => {
                     senderUsername: sent.sender.username.toString(),
                     senderDisplayName: sent.sender.displayName.toString(),
                     receiver: talkingTo.toString(),
-                    date: sent.created.toLocaleString(),
+                    date: sent.created.toISOString(),
                     msgID: sent.id.toString(),
                     chatID: id.toString(),
                 },
                 token: androidTokens[talkingTo]
             };
-            admin.messaging().send(message)
-                .then((response) => {
-                    console.log('Successfully sent message:', response);
-                })
-                .catch((error) => {
-                    console.log('Error sending message:', error);
-                });
+            for (let i = 0; i < sent.content.length; i += 3000) {
+                const message = {
+                    notification: {
+                        title: 'Message from ' + sent.sender.displayName,
+                        body: sent.content.substring(i, i + 3000),
+                    },
+                    data: {
+                        action: 'send_message',
+                        senderUsername: sent.sender.username.toString(),
+                        senderDisplayName: sent.sender.displayName.toString(),
+                        receiver: talkingTo.toString(),
+                        date: sent.created.toISOString(),
+                        msgID: sent.id.toString(),
+                        chatID: id.toString(),
+                    },
+                    token: androidTokens[talkingTo]
+                };
+                await admin.messaging().send(message)
+                    .then((response) => {
+                        console.log('Successfully sent message:', response);
+                    })
+                    .catch((error) => {
+                        console.log('Error sending message:', error);
+                    });
+            }
         } else if (androidTokens[data.username] && !androidTokens[talkingTo]) {
-            var newMsg =
-                {
+            var newMsg = {
                     chatID: id,
                     message: {
                         message: msg,
                         pic: {[data.username]: sent.sender.profilePic},
                         me: data.username,
-                        date: sent.created
+                        date: formatDate(sent.created)
                     },
                     receiverUsername: talkingTo
                 }
@@ -239,5 +256,14 @@ const deleteChatById = async (req, res) => {
     }
 }
 
+function formatDate(dateString) {
+    let date = new Date(dateString);
+    let day = ("0" + date.getDate()).slice(-2);
+    let month = ("0" + (date.getMonth() + 1)).slice(-2);
+    let year = date.getFullYear();
+    let hours = ("0" + date.getHours()).slice(-2);
+    let minutes = ("0" + date.getMinutes()).slice(-2);
+    return day + "." + month + "." + year + " " + hours + ":" + minutes;
+}
 
 module.exports = {postChats, getChats, sendMessage, getMessagesById, getOnlyMessages, deleteChatById}

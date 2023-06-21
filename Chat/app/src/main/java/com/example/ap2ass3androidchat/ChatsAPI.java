@@ -70,10 +70,18 @@ public class ChatsAPI {
                             .getContactInstance()
                             .contactDao();
                     dao.deleteAll();
-                    for(Contact c : response.body()) {
+                    List<Contact> list = response.body();
+                    for (Contact c : list) {
+                        if (c.getLastMessage() != null) {
+                            if (c.getLastMessage().getCreated() != null) {
+                                c.getLastMessage()
+                                        .setCreated((formatDate(
+                                                c.getLastMessage().getCreated())));
+                            }
+                        }
                         dao.insert(c);
                     }
-                    contactListData.setValue(response.body());
+                    contactListData.setValue(list);
                     Log.e("API Call", response.body().toString());
                 } else {
                     Log.e("API Call", "faillogin");
@@ -106,6 +114,7 @@ public class ChatsAPI {
                     Collections.reverse(mByID);
                     for (MessagesByID m : mByID) {
                         m.setChatID(id);
+                        m.setCreated(formatDate(m.getCreated()));
                     }
                     messageListData.setValue(mByID);
                     Log.e("API Call", response.body().toString());
@@ -164,21 +173,7 @@ public class ChatsAPI {
                 if (response.isSuccessful()) {
                     PostMessagesByID newMsg = response.body();
                     List<MessagesByID> list = messageListData.getValue();
-
-/*                    // split the string by the "T" character
-                    String[] dateTime = newMsg.getCreated().split("T");
-
-                    // split the date into its components
-                    String[] dateParts = dateTime[0].split("-");
-
-                    // split the time into its components
-                    String[] timeParts = dateTime[1].split(":|\\.");
-
-                    // rearrange the date and time components into the desired format
-                    String formattedDate = dateParts[2] + "." + dateParts[1] + "." + dateParts[0]
-                            + " " + timeParts[0] + ":" + timeParts[1];*/
-
-                    MessagesByID insert = new MessagesByID(newMsg.getId(), newMsg.getCreated(),
+                    MessagesByID insert = new MessagesByID(newMsg.getId(), formatDate(newMsg.getCreated()),
                             new Sender(newMsg.getSender().getUsername()), newMsg.getContent());
                     insert.setChatID(id);
                     list.add(insert);
@@ -199,5 +194,27 @@ public class ChatsAPI {
 
     }
 
+    public static String formatDate(String isoDate) {
+        String[] dateParts, date, time;
+        String year, month, day, hour, minute;
+        dateParts = isoDate.split("T");
+        date = dateParts[0].split("-");
+        time = dateParts[1].split(":");
+        year = date[0];
+        month = date[1];
+        day = date[2];
+        hour = time[0];
+        minute = time[1];
+
+        // Add 3 to the hour and handle wrapping from 24 to 0
+        int hourInt = Integer.parseInt(hour);
+        hourInt += 3;
+        if (hourInt >= 24) {
+            hourInt -= 24;
+        }
+        // Add leading zero if necessary
+        hour = String.format("%02d", hourInt);
+        return day + "." + month + "." + year + " " + hour + ":" + minute;
+    }
 
 }
