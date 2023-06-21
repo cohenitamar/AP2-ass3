@@ -26,10 +26,11 @@ const postChats = async (him, me) => {
         if (him === me) {
             return -1;
         }
-        const formattedHim = formatUser(await User.findOne({username: him}));
+        var formattedHim = await User.findOne({username: him});
         if (formattedHim === null || me === null) {
             return -2;
         }
+        formattedHim = formatUser(formattedHim)
         const newChat = new Chat({
             users: [him, me],
             messages: []

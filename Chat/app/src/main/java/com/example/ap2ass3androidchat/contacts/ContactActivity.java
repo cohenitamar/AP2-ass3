@@ -78,11 +78,11 @@ public class ContactActivity extends AppCompatActivity {
         listView.setClickable(true);
 
         contactsFirebase.observe(this, contacts -> {
-                viewModel.reload();
+            viewModel.reload();
         });
 
         messagesFirebase.observe(this, messages -> {
-                viewModel.reload();
+            viewModel.reload();
         });
 
         Button settings = findViewById(R.id.btn_settings);
@@ -119,10 +119,7 @@ public class ContactActivity extends AppCompatActivity {
                 intent.putExtra("pic", clickedContact.getUser().getProfilePic());
                 startActivity(intent);
             }
-
         });
-
-
     }
 
     @Override

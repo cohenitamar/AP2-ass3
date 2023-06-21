@@ -2,6 +2,7 @@ package com.example.ap2ass3androidchat;
 
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
 
@@ -34,8 +35,8 @@ public class ChatsAPI {
     Retrofit retrofit;
     ChatAPI chatApi;
 
+    MutableLiveData<String> responseAnswer;
 
-    private MutableLiveData<String> responseAnswer;
 
     public ChatsAPI() {
 
@@ -58,32 +59,9 @@ public class ChatsAPI {
 
         chatApi = retrofit.create(ChatAPI.class);
 
-        responseAnswer = new MutableLiveData<>();
+        responseAnswer = SingletonChatsAPI.getSingletonChatsAPIInstance();
 
     }
-
-    public void setURL() {
-
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor(interceptor).build();
-
-        Gson gson = new GsonBuilder()
-                .setLenient()
-                .create();
-
-        SharedPreferences pref = SingletonURL.getURLInstance();
-        String URL = pref.getString("URL", "http://10.0.2.2:5000");
-
-        retrofit = new Retrofit.Builder().baseUrl(URL + "/api/")
-                .addConverterFactory(GsonConverterFactory.create(gson)).client(client)
-                .build();
-
-        chatApi = retrofit.create(ChatAPI.class);
-
-    }
-
 
 
     public void getChats(MutableLiveData<List<Contact>> contactListData, String token) {
@@ -177,11 +155,7 @@ public class ChatsAPI {
                     Log.e("API Call", response.body().toString());
                     responseAnswer.setValue("ok");
                 } else {
-                    int a = response.code();
-                    responseAnswer.setValue(response.errorBody().toString());
-                    Log.e("API Call", "dfdfdf");
-                    Log.e("API Call", responseAnswer.toString());
-                    a = response.code();
+                    responseAnswer.setValue("invalid");
                 }
             }
 

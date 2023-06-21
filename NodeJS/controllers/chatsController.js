@@ -113,22 +113,6 @@ const sendMessage = async (req, res) => {
             var talkingTo = chat.users[0];
         }
         if (androidTokens[talkingTo]) {
-            const message = {
-                notification: {
-                    title: 'Message from ' + sent.sender.displayName,
-                    body: sent.content,
-                },
-                data: {
-                    action: 'send_message',
-                    senderUsername: sent.sender.username.toString(),
-                    senderDisplayName: sent.sender.displayName.toString(),
-                    receiver: talkingTo.toString(),
-                    date: sent.created.toISOString(),
-                    msgID: sent.id.toString(),
-                    chatID: id.toString(),
-                },
-                token: androidTokens[talkingTo]
-            };
             for (let i = 0; i < sent.content.length; i += 3000) {
                 const message = {
                     notification: {
