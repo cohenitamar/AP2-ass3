@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -89,6 +90,10 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onChanged(String s) {
                 if (s.equals("Not valid user/password.")) {
+
+                    Toast.makeText(getApplicationContext(), "Invalid username/password",
+                            Toast.LENGTH_SHORT).show();
+
                 } else {
                     Intent intent = new Intent(LoginActivity.this, ContactActivity.class);
                     intent.putExtra("token", "Bearer " + s);
