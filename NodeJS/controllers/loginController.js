@@ -6,7 +6,6 @@ const socketsManager = require("../socketsManager");
 
 
 const login = async (req, res) => {
-    console.log(req)
     if (!req.body.username || !req.body.password) {
         return res.status(400).json("Bad Request");
     }
@@ -36,7 +35,6 @@ const login = async (req, res) => {
 
 
 const getUser = async (req, res) => {
-    console.log(req)
     if (!req.params.username) {
         return res.status(400).json("Bad Request");
     }

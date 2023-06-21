@@ -44,7 +44,6 @@ public class MessageRepository {
 
         public MessageListData() {
             super();
-            Log.e("chatID",chatId);
             setValue(messagesDao.getMsgByChat(chatId));
         }
 

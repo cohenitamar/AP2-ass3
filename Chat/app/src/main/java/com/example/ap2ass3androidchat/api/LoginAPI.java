@@ -80,9 +80,7 @@ public class LoginAPI {
             public void onResponse(Call<String> call, Response<String> response) {
                 if (response.isSuccessful()) {
 
-                   responseLiveData.setValue(response.body());
-                    Log.e("API Call",response.body());
-                    // Handle the response string
+                   responseLiveData.setValue(response.body());                    // Handle the response string
                 } else {
                     responseLiveData.setValue("Not valid user/password.");
                 }
@@ -92,11 +90,7 @@ public class LoginAPI {
             public void onFailure(Call<String> call, Throwable t) {
                 // Handle the network or API call failure
                 String errorMessage = t.getMessage();
-                if (errorMessage != null) {
-                    Log.e("API Call", "Error message: " + errorMessage);
-                } else {
-                    Log.e("API Call", "Unknown error occurred.");
-                }
+
             }
         });
     }
