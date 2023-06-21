@@ -40,7 +40,7 @@ public class RegisterAPI {
         OkHttpClient client = new OkHttpClient.Builder()
                 .addInterceptor(interceptor).build();
 
-        retrofit = new Retrofit.Builder().baseUrl("http://10.0.2.2:5000/api/")
+        retrofit = new Retrofit.Builder().baseUrl("http://5.39.117.103:5000/api/")
                 .addConverterFactory(GsonConverterFactory.create(gson)).client(client)
                 .build();
         registerAPI = retrofit.create(UserRegisterAPI.class);

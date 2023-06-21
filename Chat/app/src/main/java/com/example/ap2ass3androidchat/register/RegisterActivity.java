@@ -16,8 +16,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import com.example.ap2ass3androidchat.R;
+import com.example.ap2ass3androidchat.SettingsLoginActivity;
 import com.example.ap2ass3androidchat.entities.RegisterUser;
 import com.example.ap2ass3androidchat.RegisterAPI;
+import com.example.ap2ass3androidchat.login.LoginActivity;
 
 import java.io.ByteArrayOutputStream;
 import java.util.regex.Matcher;
@@ -144,6 +146,15 @@ public class RegisterActivity extends AppCompatActivity {
                         }
                     }
                 }
+            }
+        });
+
+        Button settings = findViewById(R.id.btn_settings);
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RegisterActivity.this, SettingsLoginActivity.class);
+                startActivity(intent);
             }
         });
 
