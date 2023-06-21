@@ -66,7 +66,7 @@ public class MessageActivity extends AppCompatActivity {
 
         viewModel.get().observe(this, messages -> {
             adapter.setMessages(messages);
-            listView.smoothScrollToPosition(adapter.getCount() - 1);
+            listView.setSelection(adapter.getCount() - 1);
         });
 
         MutableLiveData<MessagesByID> messagesFirebase = SingletonFirebase.getFirebaseMessageInstance();
@@ -109,9 +109,6 @@ public class MessageActivity extends AppCompatActivity {
                 if (text.getText().toString().equals("")) {
                     text.setText("");
                 } else {
-                    Date currentDateTime = new Date();
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-                    String formattedDateTime = dateFormat.format(currentDateTime);
                     viewModel.addMsg(chatID, text.getText().toString());
                     text.setText("");
                                  /*  messagesDao.insert(msg);

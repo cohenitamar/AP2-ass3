@@ -59,7 +59,7 @@ public class MyService extends FirebaseMessagingService {
             String receiver = data.get("receiver");
             String msgID = data.get("msgID");
             String date = data.get("date");
-            messages.postValue(new MessagesByID(msgID, date, new Sender(senderUsername),
+            messages.postValue(new MessagesByID(msgID, ChatsAPI.formatDate(date), new Sender(senderUsername),
                     message.getNotification().getBody()));
         }
     }
