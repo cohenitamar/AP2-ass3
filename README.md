@@ -54,5 +54,6 @@ In addition, if the user is logged in (which means he got the setting page from 
 - The data is updated and synchronized consistently with the server.
 - Pay attention that the notification settings are on.
 - Please notice that your data in on.
+- Navigation is with the phone tools!!
 
 
