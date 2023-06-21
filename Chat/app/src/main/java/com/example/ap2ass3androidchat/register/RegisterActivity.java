@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.lifecycle.Observer;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -15,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import com.example.ap2ass3androidchat.R;
 import com.example.ap2ass3androidchat.SettingsActivity;
 import com.example.ap2ass3androidchat.entities.RegisterUser;
@@ -27,7 +30,7 @@ import java.util.regex.Pattern;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class RegisterActivity extends AppCompatActivity {
-    RegisterAPI registerAPI = new RegisterAPI();
+    RegisterAPI registerAPI;
     private RegisterActivity activity;
     private EditText firstNameInput;
     private EditText lastNameInput;
@@ -44,7 +47,7 @@ public class RegisterActivity extends AppCompatActivity {
         boolean isLastNameValid = lastNameInput.length() > 0;
 
         //if length is 0 "or less"
-        if(!isFirstNameValid && !isLastNameValid){
+        if (!isFirstNameValid && !isLastNameValid) {
             Toast.makeText(activity, "Please enter your first and last name", Toast.LENGTH_SHORT).show();
             return 1;
         } else {
@@ -56,16 +59,16 @@ public class RegisterActivity extends AppCompatActivity {
                 return 1;
             }
         }
-        if(usernameInput.length() < 3){
+        if (usernameInput.length() < 3) {
             Toast.makeText(activity, "Username needs to be at least 3 letters long", Toast.LENGTH_SHORT).show();
             return 1;
         }
-        if(!passwordInput.getText().toString().equals(confirmPasswordInput.getText().toString())){
+        if (!passwordInput.getText().toString().equals(confirmPasswordInput.getText().toString())) {
             Toast.makeText(activity, "Passwords do not match", Toast.LENGTH_SHORT).show();
             return 1;
         }
 
-        if(passwordInput.length() < 8 ){
+        if (passwordInput.length() < 8) {
             Toast.makeText(activity, "Password needs to be at least 8 letters long", Toast.LENGTH_SHORT).show();
             return 1;
         }
@@ -104,6 +107,8 @@ public class RegisterActivity extends AppCompatActivity {
         activity = this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_activity);
+
+        registerAPI = new RegisterAPI();
 
         firstNameInput = findViewById(R.id.firstNameInput);
         lastNameInput = findViewById(R.id.lastNameInput);
@@ -161,9 +166,9 @@ public class RegisterActivity extends AppCompatActivity {
 
         profilePic = findViewById(R.id.profilePic);
 
-        profilePic.setOnClickListener(new View.OnClickListener(){
+        profilePic.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 //new intent opens to enable the user to choose a picture
                 Intent intent = new Intent(Intent.ACTION_PICK,
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -173,20 +178,21 @@ public class RegisterActivity extends AppCompatActivity {
         });
 
 
-        registerAPI.getResponseLiveData().observe(this, new Observer<String>(){
+        registerAPI.getResponseLiveData().observe(this, new Observer<String>() {
             @Override
             public void onChanged(String s) {
-                if (s.equals("true")){
+                if (s.equals("true")) {
                     Toast.makeText(activity, "User created successfully", Toast.LENGTH_SHORT).show();
                     RegisterActivity.this.finish();
                 } else if (s.equals("User already exist.")) {
                     Toast.makeText(activity, "User already exists", Toast.LENGTH_SHORT).show();
-                } else{
+                } else {
                     Toast.makeText(activity, "Could not create user", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -195,6 +201,12 @@ public class RegisterActivity extends AppCompatActivity {
             Uri selectedImage = data.getData();
             profilePic.setImageURI(selectedImage);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerAPI.setURL();
     }
 
 }

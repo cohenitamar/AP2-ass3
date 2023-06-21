@@ -7,13 +7,18 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import com.google.android.material.imageview.ShapeableImageView;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class SettingsActivity extends AppCompatActivity {
     private String username;
@@ -39,6 +44,11 @@ public class SettingsActivity extends AppCompatActivity {
         registerAPI = new RegisterAPI();
 
 
+        sharedPref = getSharedPreferences("prefs", Context.MODE_PRIVATE);
+
+        EditText URL = findViewById(R.id.urltext);
+        Button saveURL = findViewById(R.id.saveurl);
+        URL.setText(sharedPref.getString("URL", "http://10.0.2.2"));
         Button logoutButton = findViewById(R.id.logoutbutton);
         ShapeableImageView img = findViewById(R.id.myprofileimage);
         TextView name = findViewById(R.id.myname);
@@ -54,7 +64,7 @@ public class SettingsActivity extends AppCompatActivity {
             registerAPI.getUser(token, username, img, name);
         }
         nightSwitch = findViewById(R.id.nightswitch);
-        sharedPref = getPreferences(Context.MODE_PRIVATE);
+
 
         int currentNightMode = AppCompatDelegate.getDefaultNightMode();
 
@@ -74,9 +84,36 @@ public class SettingsActivity extends AppCompatActivity {
                 } else {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                 }
-                SharedPreferences.Editor editor = sharedPref.edit();
+ /*               SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putBoolean("nightSwitchState", isChecked);
+                editor.apply();*/
+            }
+        });
+
+        saveURL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Pattern pattern = Pattern.compile("^(http|https)://");
+                Matcher matcher = pattern.matcher(URL.getText().toString());
+
+                if (!matcher.find()) {
+                    Toast.makeText(getApplicationContext(),
+                            "Invalid URL, has to start with http / https",
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString("URL", URL.getText().toString());
+                URL.setText(URL.getText().toString());
                 editor.apply();
+                URL.clearFocus();
+                if (!(token.equals("NO_TOKEN") && username.equals("NO_USERNAME"))) {
+                    SingletonLogout.setState(1);
+                    SingletonNotification.toggleState();
+                }
+                finish();
             }
         });
 
