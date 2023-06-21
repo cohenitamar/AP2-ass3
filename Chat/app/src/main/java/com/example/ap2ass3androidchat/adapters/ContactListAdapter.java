@@ -61,13 +61,16 @@ public class ContactListAdapter extends ArrayAdapter<Contact> {
 
 
         String encodedProfilePic = contact.getUser().getProfilePic();
-        encodedProfilePic = encodedProfilePic
-                .replaceFirst("^data:image\\/.+;base64,", "");
-        byte[] decodedBytes = Base64.decode(encodedProfilePic, Base64.DEFAULT);
-        Bitmap decodedBitmap = BitmapFactory
-                .decodeByteArray(decodedBytes, 0, decodedBytes.length);
-        imageView.setImageBitmap(decodedBitmap);
-
+        if (encodedProfilePic.equals("/static/media/easter_egg.d0d1d09d533aee0fddf4.png")) {
+            imageView.setImageResource(R.drawable.easter_egg);
+        } else {
+            encodedProfilePic = encodedProfilePic
+                    .replaceFirst("^data:image\\/.+;base64,", "");
+            byte[] decodedBytes = Base64.decode(encodedProfilePic, Base64.DEFAULT);
+            Bitmap decodedBitmap = BitmapFactory
+                    .decodeByteArray(decodedBytes, 0, decodedBytes.length);
+            imageView.setImageBitmap(decodedBitmap);
+        }
 
         userName.setText(contact.getUser().getDisplayName());
         String lm = "";

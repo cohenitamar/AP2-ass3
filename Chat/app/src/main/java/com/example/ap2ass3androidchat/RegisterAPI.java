@@ -99,12 +99,17 @@ public class RegisterAPI {
                 if (response.isSuccessful()) {
                     ChatUser me = response.body();
                     String encodedProfilePic = me.getProfilePic();
-                    encodedProfilePic = encodedProfilePic
-                            .replaceFirst("^data:image\\/.+;base64,", "");
-                    byte[] decodedBytes = Base64.decode(encodedProfilePic, Base64.DEFAULT);
-                    Bitmap decodedBitmap = BitmapFactory
-                            .decodeByteArray(decodedBytes, 0, decodedBytes.length);
-                    img.setImageBitmap(decodedBitmap);
+                    if (encodedProfilePic.equals("/static/media/easter_egg.d0d1d09d533aee0fddf4.png")) {
+                        img.setImageResource(R.drawable.easter_egg);
+                    } else {
+
+                        encodedProfilePic = encodedProfilePic
+                                .replaceFirst("^data:image\\/.+;base64,", "");
+                        byte[] decodedBytes = Base64.decode(encodedProfilePic, Base64.DEFAULT);
+                        Bitmap decodedBitmap = BitmapFactory
+                                .decodeByteArray(decodedBytes, 0, decodedBytes.length);
+                        img.setImageBitmap(decodedBitmap);
+                    }
                     name.setText(me.getDisplayName());
                 }
             }
