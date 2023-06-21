@@ -14,11 +14,9 @@ import androidx.lifecycle.Observer;
 import com.example.ap2ass3androidchat.LoginAPI;
 import com.example.ap2ass3androidchat.R;
 
+import com.example.ap2ass3androidchat.SettingsActivity;
 import com.example.ap2ass3androidchat.SingletonLogout;
 import com.example.ap2ass3androidchat.SingletonNotification;
-
-import com.example.ap2ass3androidchat.SettingsActivity;
-import com.example.ap2ass3androidchat.SettingsLoginActivity;
 
 import com.example.ap2ass3androidchat.SingletonDatabase;
 import com.example.ap2ass3androidchat.contacts.ContactActivity;
@@ -52,7 +50,9 @@ public class LoginActivity extends AppCompatActivity {
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, SettingsLoginActivity.class);
+                Intent intent = new Intent(LoginActivity.this, SettingsActivity.class);
+                intent.putExtra("token", "NO_TOKEN");
+                intent.putExtra("username", "NO_USERNAME");
                 startActivity(intent);
             }
         });

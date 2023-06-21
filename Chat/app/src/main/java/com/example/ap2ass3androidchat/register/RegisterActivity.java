@@ -16,10 +16,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import com.example.ap2ass3androidchat.R;
-import com.example.ap2ass3androidchat.SettingsLoginActivity;
+import com.example.ap2ass3androidchat.SettingsActivity;
 import com.example.ap2ass3androidchat.entities.RegisterUser;
 import com.example.ap2ass3androidchat.RegisterAPI;
-import com.example.ap2ass3androidchat.login.LoginActivity;
 
 import java.io.ByteArrayOutputStream;
 import java.util.regex.Matcher;
@@ -153,7 +152,9 @@ public class RegisterActivity extends AppCompatActivity {
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(RegisterActivity.this, SettingsLoginActivity.class);
+                Intent intent = new Intent(RegisterActivity.this, SettingsActivity.class);
+                intent.putExtra("token", "NO_TOKEN");
+                intent.putExtra("username", "NO_USERNAME");
                 startActivity(intent);
             }
         });

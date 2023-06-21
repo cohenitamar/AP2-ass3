@@ -34,7 +34,7 @@ public class LoginAPI {
                 .setLenient()
                 .create();
 
-        retrofit = new Retrofit.Builder().baseUrl("http://5.39.117.103:5000/api/")
+        retrofit = new Retrofit.Builder().baseUrl("http://10.0.2.2:5000/api/")
                 .addConverterFactory(GsonConverterFactory.create(gson)).client(client)
                 .build();
         userAPI = retrofit.create(UserAPI.class);
