@@ -1,13 +1,15 @@
-package com.example.ap2ass3androidchat;
+package com.example.ap2ass3androidchat.repositories;
 
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.ap2ass3androidchat.api.ChatsAPI;
 import com.example.ap2ass3androidchat.entities.MessagesByID;
 import com.example.ap2ass3androidchat.messages.MessageDB;
 import com.example.ap2ass3androidchat.messages.MessagesDao;
+import com.example.ap2ass3androidchat.singleton.SingletonDatabase;
 
 import java.util.List;
 
@@ -65,9 +67,8 @@ public class MessageRepository {
         api.postMessages(this.messageListData,token,id,msg);
     }
     public void onReload(){
-        messagesDao.deleteAll();
+        api.getChatsByID(this.messageListData, token, id);;
     }
-
     public void add(MessagesByID m){
         if(messagesDao.getMsgByID(m.getId()) != null)
             messagesDao.insert(m);

@@ -10,8 +10,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ap2ass3androidchat.R;
-import com.example.ap2ass3androidchat.SingletonChatsAPI;
-import com.example.ap2ass3androidchat.SingletonDatabase;
+import com.example.ap2ass3androidchat.singleton.SingletonChatsAPI;
+import com.example.ap2ass3androidchat.singleton.SingletonDatabase;
 import com.example.ap2ass3androidchat.adapters.ContactListAdapter;
 import com.example.ap2ass3androidchat.entities.Contact;
 import com.example.ap2ass3androidchat.viewmodels.ContactsViewModel;

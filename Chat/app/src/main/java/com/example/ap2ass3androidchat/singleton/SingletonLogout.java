@@ -1,4 +1,4 @@
-package com.example.ap2ass3androidchat;
+package com.example.ap2ass3androidchat.singleton;
 
 public class SingletonLogout {
 

@@ -1,4 +1,6 @@
-package com.example.ap2ass3androidchat.entities;
+package com.example.ap2ass3androidchat.assistingclasses;
+
+import com.example.ap2ass3androidchat.assistingclasses.ChatUser;
 
 public class PostChatUser {
     private String id;

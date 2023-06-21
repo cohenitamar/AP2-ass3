@@ -1,9 +1,9 @@
-package com.example.ap2ass3androidchat;
+package com.example.ap2ass3androidchat.api;
 
 import com.example.ap2ass3androidchat.entities.Contact;
 import com.example.ap2ass3androidchat.entities.MessagesByID;
-import com.example.ap2ass3androidchat.entities.PostChatUser;
-import com.example.ap2ass3androidchat.entities.PostMessagesByID;
+import com.example.ap2ass3androidchat.assistingclasses.PostChatUser;
+import com.example.ap2ass3androidchat.assistingclasses.PostMessagesByID;
 
 import java.util.List;
 import java.util.Map;

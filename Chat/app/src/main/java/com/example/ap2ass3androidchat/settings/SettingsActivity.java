@@ -1,4 +1,4 @@
-package com.example.ap2ass3androidchat;
+package com.example.ap2ass3androidchat.settings;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +15,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
+import com.example.ap2ass3androidchat.R;
+import com.example.ap2ass3androidchat.api.RegisterAPI;
+import com.example.ap2ass3androidchat.singleton.SingletonLogout;
+import com.example.ap2ass3androidchat.singleton.SingletonNotification;
 import com.google.android.material.imageview.ShapeableImageView;
 
 import java.util.regex.Matcher;

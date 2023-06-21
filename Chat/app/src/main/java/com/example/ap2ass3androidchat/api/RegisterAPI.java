@@ -1,4 +1,4 @@
-package com.example.ap2ass3androidchat;
+package com.example.ap2ass3androidchat.api;
 
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -9,8 +9,10 @@ import android.widget.TextView;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.ap2ass3androidchat.entities.ChatUser;
-import com.example.ap2ass3androidchat.entities.RegisterUser;
+import com.example.ap2ass3androidchat.R;
+import com.example.ap2ass3androidchat.singleton.SingletonURL;
+import com.example.ap2ass3androidchat.assistingclasses.ChatUser;
+import com.example.ap2ass3androidchat.assistingclasses.RegisterUser;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

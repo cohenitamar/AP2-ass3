@@ -1,4 +1,4 @@
-package com.example.ap2ass3androidchat.entities;
+package com.example.ap2ass3androidchat.assistingclasses;
 
 public class ChatMessage {
 

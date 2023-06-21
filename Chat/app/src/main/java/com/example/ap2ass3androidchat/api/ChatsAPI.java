@@ -1,18 +1,20 @@
-package com.example.ap2ass3androidchat;
+package com.example.ap2ass3androidchat.api;
 
 import android.content.SharedPreferences;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.ap2ass3androidchat.singleton.SingletonChatsAPI;
+import com.example.ap2ass3androidchat.singleton.SingletonDatabase;
+import com.example.ap2ass3androidchat.singleton.SingletonURL;
 import com.example.ap2ass3androidchat.contacts.ContactDB;
 import com.example.ap2ass3androidchat.contacts.ContactsDao;
 import com.example.ap2ass3androidchat.entities.Contact;
 import com.example.ap2ass3androidchat.entities.MessagesByID;
-import com.example.ap2ass3androidchat.entities.PostChatUser;
-import com.example.ap2ass3androidchat.entities.PostMessagesByID;
-import com.example.ap2ass3androidchat.entities.Sender;
+import com.example.ap2ass3androidchat.assistingclasses.PostChatUser;
+import com.example.ap2ass3androidchat.assistingclasses.PostMessagesByID;
+import com.example.ap2ass3androidchat.assistingclasses.Sender;
 import com.example.ap2ass3androidchat.messages.MessageDB;
 import com.example.ap2ass3androidchat.messages.MessagesDao;
 import com.google.gson.Gson;
@@ -34,6 +36,8 @@ public class ChatsAPI {
 
     Retrofit retrofit;
     ChatAPI chatApi;
+
+    MutableLiveData<String> responseLiveData;
 
     MutableLiveData<String> responseAnswer;
 
@@ -60,9 +64,14 @@ public class ChatsAPI {
         chatApi = retrofit.create(ChatAPI.class);
 
         responseAnswer = SingletonChatsAPI.getSingletonChatsAPIInstance();
+        responseLiveData = new MutableLiveData<>();
 
     }
 
+
+    public MutableLiveData<String> getResponseLiveData() {
+        return responseLiveData;
+    }
 
     public void getChats(MutableLiveData<List<Contact>> contactListData, String token) {
         Call<List<Contact>> call = chatApi.getChats(token);
@@ -87,6 +96,7 @@ public class ChatsAPI {
                         dao.insert(c);
                     }
                     contactListData.setValue(list);
+                    responseLiveData.setValue("bla");
                     Log.e("API Call", response.body().toString());
                 } else {
                     Log.e("API Call", "faillogin");

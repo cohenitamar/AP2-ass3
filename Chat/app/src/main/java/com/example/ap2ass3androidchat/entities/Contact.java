@@ -4,6 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.example.ap2ass3androidchat.assistingclasses.ChatMessage;
+import com.example.ap2ass3androidchat.assistingclasses.ChatUser;
+
 @Entity
 public class Contact {
     public String getId() {

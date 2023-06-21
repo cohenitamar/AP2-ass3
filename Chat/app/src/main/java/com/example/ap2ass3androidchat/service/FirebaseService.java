@@ -1,4 +1,4 @@
-package com.example.ap2ass3androidchat;
+package com.example.ap2ass3androidchat.service;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -9,15 +9,19 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.ap2ass3androidchat.R;
+import com.example.ap2ass3androidchat.api.ChatsAPI;
 import com.example.ap2ass3androidchat.entities.MessagesByID;
-import com.example.ap2ass3androidchat.entities.Sender;
+import com.example.ap2ass3androidchat.assistingclasses.Sender;
+import com.example.ap2ass3androidchat.singleton.SingletonFirebase;
+import com.example.ap2ass3androidchat.singleton.SingletonNotification;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 import java.util.Map;
 
-public class MyService extends FirebaseMessagingService {
-    public MyService() {
+public class FirebaseService extends FirebaseMessagingService {
+    public FirebaseService() {
     }
 
     @Override

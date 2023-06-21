@@ -1,10 +1,7 @@
-package com.example.ap2ass3androidchat;
+package com.example.ap2ass3androidchat.assistingclasses;
 
 import androidx.room.TypeConverter;
 
-import com.example.ap2ass3androidchat.entities.ChatMessage;
-import com.example.ap2ass3androidchat.entities.ChatUser;
-import com.example.ap2ass3androidchat.entities.Sender;
 import com.google.gson.Gson;
 
 

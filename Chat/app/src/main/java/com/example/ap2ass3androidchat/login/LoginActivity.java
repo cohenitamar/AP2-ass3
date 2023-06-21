@@ -11,20 +11,19 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.lifecycle.Observer;
 
-import com.example.ap2ass3androidchat.LoginAPI;
+import com.example.ap2ass3androidchat.api.LoginAPI;
 import com.example.ap2ass3androidchat.R;
 
-import com.example.ap2ass3androidchat.SettingsActivity;
-import com.example.ap2ass3androidchat.SingletonLogout;
-import com.example.ap2ass3androidchat.SingletonNotification;
+import com.example.ap2ass3androidchat.settings.SettingsActivity;
+import com.example.ap2ass3androidchat.singleton.SingletonLogout;
+import com.example.ap2ass3androidchat.singleton.SingletonNotification;
 
-import com.example.ap2ass3androidchat.SingletonDatabase;
-import com.example.ap2ass3androidchat.SingletonURL;
+import com.example.ap2ass3androidchat.singleton.SingletonDatabase;
+import com.example.ap2ass3androidchat.singleton.SingletonURL;
 import com.example.ap2ass3androidchat.contacts.ContactActivity;
-import com.example.ap2ass3androidchat.entities.UserLogin;
+import com.example.ap2ass3androidchat.assistingclasses.UserLogin;
 import com.example.ap2ass3androidchat.register.RegisterActivity;
 import com.google.firebase.iid.FirebaseInstanceId;
 
@@ -73,12 +72,6 @@ public class LoginActivity extends AppCompatActivity {
                 usernameStr = username.getText().toString();
                 loginAPI.post(new UserLogin(username.getText().toString(),
                         password.getText().toString()), phoneToken);
-                SingletonDatabase
-                        .getMessageInstance(getApplicationContext())
-                        .messageDao().deleteAll();
-                SingletonDatabase
-                        .getContactInstance(getApplicationContext())
-                        .contactDao().deleteAll();
             }
         });
 
@@ -104,6 +97,21 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(intent);
                     SingletonLogout.setState(0);
                     SingletonNotification.toggleState();
+
+                    SharedPreferences sharedPref =
+                            getSharedPreferences("prefs", Context.MODE_PRIVATE);
+                    String lastLogged = sharedPref.getString("lastLogged", "");
+                    SingletonDatabase
+                            .getMessageInstance(getApplicationContext())
+                            .messageDao().deleteAll();
+                    if (!lastLogged.equals(usernameStr)) {
+                        SingletonDatabase
+                                .getContactInstance(getApplicationContext())
+                                .contactDao().deleteAll();
+                    }
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.putString("lastLogged", usernameStr);
+                    editor.apply();
                 }
             }
         });

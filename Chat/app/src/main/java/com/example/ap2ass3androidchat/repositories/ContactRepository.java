@@ -1,11 +1,13 @@
-package com.example.ap2ass3androidchat;
+package com.example.ap2ass3androidchat.repositories;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.ap2ass3androidchat.api.ChatsAPI;
 import com.example.ap2ass3androidchat.contacts.ContactDB;
 import com.example.ap2ass3androidchat.contacts.ContactsDao;
 import com.example.ap2ass3androidchat.entities.Contact;
+import com.example.ap2ass3androidchat.singleton.SingletonDatabase;
 
 import java.util.List;
 
@@ -53,6 +55,10 @@ public class ContactRepository {
         new Thread(() -> {
             api.getChats(this.contactListData, token);
         }).start();
+    }
+
+    public LiveData<String> getResponseLiveData() {
+        return api.getResponseLiveData();
     }
 
 }

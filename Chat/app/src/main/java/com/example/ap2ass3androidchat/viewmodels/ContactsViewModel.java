@@ -3,7 +3,7 @@ package com.example.ap2ass3androidchat.viewmodels;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.ap2ass3androidchat.ContactRepository;
+import com.example.ap2ass3androidchat.repositories.ContactRepository;
 import com.example.ap2ass3androidchat.entities.Contact;
 
 import java.util.List;
@@ -28,6 +28,9 @@ public class ContactsViewModel extends ViewModel {
 
     public void addContact(String username) {
         mRepository.addContact(username);
+    }
+    public LiveData<String> getResponseLiveData() {
+        return mRepository.getResponseLiveData();
     }
 
     public void delete(Contact c) {

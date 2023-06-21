@@ -4,9 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.lifecycle.Observer;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -19,9 +17,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.ap2ass3androidchat.R;
-import com.example.ap2ass3androidchat.SettingsActivity;
-import com.example.ap2ass3androidchat.entities.RegisterUser;
-import com.example.ap2ass3androidchat.RegisterAPI;
+import com.example.ap2ass3androidchat.settings.SettingsActivity;
+import com.example.ap2ass3androidchat.assistingclasses.RegisterUser;
+import com.example.ap2ass3androidchat.api.RegisterAPI;
 
 import java.io.ByteArrayOutputStream;
 import java.util.regex.Matcher;
