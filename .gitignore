@@ -15,6 +15,4 @@ Chat/captures
 Chat/.externalNativeBuild
 Chat/.cxx
 Chat/local.properties
-NodeJS/key.json
 .idea/
-Chat/app/google-services.json
