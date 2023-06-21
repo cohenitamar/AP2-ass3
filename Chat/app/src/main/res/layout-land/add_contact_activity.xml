@@ -13,7 +13,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:orientation="horizontal">
 
             <TextView
@@ -55,7 +55,7 @@
             android:id="@+id/addcontactfinal"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:backgroundTint="#010137"
             android:insetTop="0dp"
             android:insetBottom="0dp"
