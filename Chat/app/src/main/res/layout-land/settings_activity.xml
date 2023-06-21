@@ -21,7 +21,7 @@
             android:gravity="center_vertical"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
-            android:text="Settings"
+            android:text="@string/settings"
             android:textColor="#FFFFFF"
             android:textSize="24sp"
             tools:ignore="NestedWeights" />
@@ -36,7 +36,7 @@
                 android:id="@+id/myprofile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="My Profile:"
+                android:text="@string/my_profile"
                 android:textColor="#000000"
                 android:textSize="24sp" />
 
@@ -66,7 +66,7 @@
                     android:gravity="center_vertical"
                     android:maxLines="1"
                     android:paddingStart="16dp"
-                    android:text="Steve Jobs"
+                    android:text="@string/steve_jobs"
                     android:textColor="#000000"
                     android:textSize="24sp" />
 
@@ -92,7 +92,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:gravity="center"
-                android:hint="Server URL"
+                android:hint="@string/server_url"
                 android:inputType="text"
                 android:textSize="24sp" />
 
@@ -103,7 +103,7 @@
                 android:backgroundTint="#00FF00"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
-                android:text="Save"
+                android:text="@string/save"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -115,7 +115,7 @@
             android:backgroundTint="#FF0000"
             android:insetTop="0dp"
             android:insetBottom="0dp"
-            android:text="Logout"
+            android:text="@string/logout"
             android:textColor="#FFFFFF"
             android:textSize="16sp"
             app:cornerRadius="0dp"
@@ -126,6 +126,5 @@
             tools:iconTint="#FFFFFF" />
 
     </LinearLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

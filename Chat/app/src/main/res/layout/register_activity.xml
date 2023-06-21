@@ -12,7 +12,8 @@
         android:layout_height="186dp"
         android:paddingEnd="50dp"
         android:paddingTop="2dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        tools:ignore="RtlSymmetry">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -24,7 +25,7 @@
                 android:id="@+id/btn_settings"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="left"
+                android:layout_gravity="start"
                 android:layout_weight="1"
                 android:backgroundTint="@color/transparent"
                 android:insetTop="0dp"
@@ -36,7 +37,8 @@
                 app:iconGravity="end"
                 app:iconPadding="0dp"
                 app:iconSize="32dp"
-                app:iconTint="@color/minedarkblue" />
+                app:iconTint="@color/minedarkblue"
+                tools:ignore="NestedWeights" />
 
             <TextView
                 android:id="@+id/joinus"
@@ -52,7 +54,6 @@
 
         </LinearLayout>
 
-
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profilePic"
                 android:layout_width="131dp"
@@ -63,7 +64,6 @@
                 app:civ_border_width="2dp" />
 
         </LinearLayout>
-
 
     <LinearLayout
         android:layout_width="360dp"
@@ -77,7 +77,6 @@
             android:id="@+id/firstname_text_input_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
 
             <EditText
                 android:id="@+id/firstNameInput"

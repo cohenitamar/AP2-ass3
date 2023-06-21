@@ -10,10 +10,10 @@
     <Button
         android:id="@+id/btn_settings"
         android:layout_width="wrap_content"
-        android:layout_height="47dp"
+        android:layout_height="0dp"
         android:layout_weight="1"
         android:backgroundTint="@color/transparent"
-        android:layout_gravity="right"
+        android:layout_gravity="end"
         android:insetTop="0dp"
         android:insetBottom="0dp"
         android:textColor="#FFFFFF"
@@ -25,20 +25,13 @@
         app:iconSize="32dp"
         app:iconTint="#FFFFFF" />
 
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="93dp" />
-
-    <!--    </LinearLayout>-->
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="105dp"
         android:gravity="center_vertical|center"
         android:text="@string/welcome_with_spaces"
         android:textColor="@color/white"
-        android:textSize="40dp"
+        android:textSize="40sp"
         android:textStyle="bold" />
 
     <LinearLayout
@@ -61,6 +54,7 @@
                 android:layout_height="52dp"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
+                android:inputType="text"
                 android:ems="10"
                 android:hint="@string/username" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -83,7 +77,6 @@
                 android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
 
-
         <Button
             android:id="@+id/buttonLogin"
             android:layout_width="324dp"
@@ -101,13 +94,9 @@
             android:layout_width="281dp"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/white"
-            android:text="Create an account"
-            android:textSize="18dp"
+            android:text="@string/create_an_account"
+            android:textSize="18sp"
             android:textColor="@color/black"
             android:textStyle="italic" />
-
-
     </LinearLayout>
-
-
 </LinearLayout>
