@@ -1,7 +1,9 @@
 package com.example.ap2ass3androidchat.login;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -9,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.lifecycle.Observer;
 
 import com.example.ap2ass3androidchat.LoginAPI;
@@ -19,6 +22,7 @@ import com.example.ap2ass3androidchat.SingletonLogout;
 import com.example.ap2ass3androidchat.SingletonNotification;
 
 import com.example.ap2ass3androidchat.SingletonDatabase;
+import com.example.ap2ass3androidchat.SingletonURL;
 import com.example.ap2ass3androidchat.contacts.ContactActivity;
 import com.example.ap2ass3androidchat.entities.UserLogin;
 import com.example.ap2ass3androidchat.register.RegisterActivity;
@@ -27,6 +31,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 
 public class LoginActivity extends AppCompatActivity {
 
+    LoginAPI loginAPI;
     String usernameStr;
     String phoneToken;
 
@@ -35,7 +40,10 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
 
-        LoginAPI loginAPI = new LoginAPI();
+
+        SingletonURL.getURLInstance(getSharedPreferences("prefs", MODE_PRIVATE));
+
+        loginAPI = new LoginAPI();
 
         Button btn = findViewById(R.id.buttonLogin);
 
@@ -101,5 +109,10 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loginAPI.setURL();
+    }
 
 }
