@@ -83,10 +83,11 @@ In addition, if the user is logged in (which means he got the setting page from 
 - When the user tries to log in, the system checks if the user was logged in before, and if so, it updates his personal details with the local database while it asks the server for the updates data. If not, it deletes the database in order to keep the previous logged-in user’s privacy. One database.
 - The data is updated and synchronized consistently with the server.
 - Pay attention that the notification settings are on.
-- Please notice that your have your wifi / cellular services activated. 
+- Please notice that your have your Wi-Fi / cellular services activated. 
 - Navigation is with the phone buttons, the app doesn't have a special button for returning etc.
 - The android phone is on GMT+0 therefore we added manually 3 hours so it will match Israel time.
 - If the message is more than 3,000 characters (sending to android) then the phone will get the message in parts (few messages)
 - You can only be connected to one client, you can't be connected with the same user from React and Android, only the last login will count and you will get your messages there.
-
+- A person has to login everytime he turns on his phone / destroy and start the app again.
+- Once the person logs in, we are updating the local database with all the data from the server and because of that the local database and the server are synchronized with eachother.
 
