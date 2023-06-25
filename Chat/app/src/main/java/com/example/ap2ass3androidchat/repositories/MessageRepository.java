@@ -69,7 +69,7 @@ public class MessageRepository {
         api.getChatsByID(this.messageListData, token, id);;
     }
     public void add(MessagesByID m){
-        if(messagesDao.getMsgByID(m.getId()) != null)
+        if(messagesDao.getMsgByID(m.getId()) == null)
             messagesDao.insert(m);
         List<MessagesByID> list = this.messageListData.getValue();
         list.add(m);

@@ -28,7 +28,7 @@ public class ContactRepository {
     }
     class ContactListData extends MutableLiveData<List<Contact>> {
 
-        public ContactListData() {
+            public ContactListData() {
             super();
             setValue(contactsDao.index());
         }
@@ -45,7 +45,6 @@ public class ContactRepository {
     public LiveData<List<Contact>> getAll() {
         return contactListData;
     }
-
 
     public void addContact(String username){
         api.postChats(token,username);
