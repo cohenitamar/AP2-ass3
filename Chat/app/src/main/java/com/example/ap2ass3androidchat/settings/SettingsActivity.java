@@ -52,7 +52,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         EditText URL = findViewById(R.id.urltext);
         Button saveURL = findViewById(R.id.saveurl);
-        URL.setText(sharedPref.getString("URL", "http://10.0.2.2"));
+        URL.setText(sharedPref.getString("URL", "http://10.0.2.2:5000"));
         Button logoutButton = findViewById(R.id.logoutbutton);
         ShapeableImageView img = findViewById(R.id.myprofileimage);
         TextView name = findViewById(R.id.myname);
