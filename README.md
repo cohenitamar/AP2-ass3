@@ -67,7 +67,7 @@ A registered user will interact with this screen after entering his correct user
 This is the setting page. The user can reach this page from any other page by clicking the settings icon at the top right or top left of the screen.
 The setting page contains two main features:
 - A night mode radio button – enables the user to switch from day mode to night mode and the opposite. The change is reflected by a darker design. When the user closes the app, the dark mode is reset. 
-- Server URL – a tool that enables the user to move between different servers. The URL must start with http:// or https:// and has to end with a port (:PORT_NUMBER). For example http://23.54.12.34:5000 the client is automatically adding the /api/ to the URL for convenient purposes.
+- Server URL – a tool that enables the user to move between different servers. The URL must start with http:// or https:// and has to end with a port (:PORT_NUMBER) (if there is a default port in the URL you don't have to state the port). For example http://23.54.12.34:5000 the client is automatically adding the /api/ to the URL for convenient purposes.
 In addition, if the user is logged in (which means he got the setting page from the chats page), his name and profile picture will be displayed, and a logout button too.
 
 # Communication between users
