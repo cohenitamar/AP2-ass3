@@ -72,7 +72,7 @@ public class ContactActivity extends AppCompatActivity {
 
         this.contactsDao = db.contactDao();
 
-        this.msgDao =mdb.messageDao();
+        this.msgDao = mdb.messageDao();
 
         this.firstTime = 1;
 
@@ -80,8 +80,7 @@ public class ContactActivity extends AppCompatActivity {
 
         this.contacts = new ArrayList<>();
 
-        this.messagesViewModel =new MessagesViewModel(token,"");
-
+        this.messagesViewModel = new MessagesViewModel(token, "");
 
 
         listView = findViewById(R.id.contactsList);
@@ -97,14 +96,16 @@ public class ContactActivity extends AppCompatActivity {
             public void onChanged(List<MessagesByID> messagesByIDS) {
 
                 new Thread(() -> {
-                    for (MessagesByID m : messagesByIDS){
-                        msgDao.insert(m);
+                    for (MessagesByID m : messagesByIDS) {
+                        if (SingletonDatabase
+                                .getMessageInstance()
+                                .messageDao()
+                                .getMsgByID(m.getId()) == null)
+                            msgDao.insert(m);
                     }
                 }).start();
             }
         });
-
-
 
 
         viewModel.getResponseLiveData().observe(this, new Observer<String>() {
@@ -118,7 +119,7 @@ public class ContactActivity extends AppCompatActivity {
                             messagesViewModel.reload();
                         }
                     }
-                    firstTime=0;
+                    firstTime = 0;
                 }
             }
         });
