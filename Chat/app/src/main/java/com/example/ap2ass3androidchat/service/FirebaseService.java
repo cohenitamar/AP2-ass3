@@ -63,8 +63,11 @@ public class FirebaseService extends FirebaseMessagingService {
             String receiver = data.get("receiver");
             String msgID = data.get("msgID");
             String date = data.get("date");
-            messages.postValue(new MessagesByID(msgID, ChatsAPI.formatDate(date), new Sender(senderUsername),
-                    message.getNotification().getBody()));
+            MessagesByID fullMsg = new MessagesByID(msgID, ChatsAPI.formatDate(date),
+                    new Sender(senderUsername),
+                    message.getNotification().getBody());
+            fullMsg.setChatID(chatID);
+            messages.postValue(fullMsg);
         }
     }
 

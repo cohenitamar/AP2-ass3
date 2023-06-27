@@ -71,6 +71,8 @@ public class MessageRepository {
     public void add(MessagesByID m){
         if(messagesDao.getMsgByID(m.getId()) == null)
             messagesDao.insert(m);
+        if(!m.getChatID().equals(chatId))
+            return;
         List<MessagesByID> list = this.messageListData.getValue();
         list.add(m);
         this.messageListData.postValue(list);
