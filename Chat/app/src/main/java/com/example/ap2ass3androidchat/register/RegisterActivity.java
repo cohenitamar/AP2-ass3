@@ -144,6 +144,7 @@ public class RegisterActivity extends AppCompatActivity {
                             byte[] byteArray = byteArrayOutputStream.toByteArray();
                             //byte array to string
                             String encodedProfilePic = Base64.encodeToString(byteArray, Base64.DEFAULT);
+                            encodedProfilePic = "data:image/jpeg;base64," + encodedProfilePic;
                             registerAPI.post(new RegisterUser(usernameInput.getText().toString(), passwordInput.getText().toString(), displayName, encodedProfilePic));
                         }
                     }

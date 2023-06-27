@@ -32,7 +32,7 @@ const postChats = async (req, res) => {
                 const message = {
                     notification: {
                         title: 'Chat',
-                        body: req.body.username + " has started a conversation with you!",
+                        body: data.username + " has started a conversation with you!",
                     },
                     data: {
                         action: 'add_contact',
