@@ -44,6 +44,8 @@ public class ContactActivity extends AppCompatActivity {
 
     private MessageDB mdb;
     private int firstTime;
+
+    private int firstTimeReload;
     private MessagesViewModel messagesViewModel;
 
     String token;
@@ -75,6 +77,9 @@ public class ContactActivity extends AppCompatActivity {
         this.msgDao = mdb.messageDao();
 
         this.firstTime = 1;
+
+        this.firstTimeReload = 1;
+
 
         this.viewModel = new ContactsViewModel(token);
 
@@ -176,6 +181,7 @@ public class ContactActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        System.out.println("onResume");
         if (SingletonLogout.getLogoutInstance() == 1) {
             finish();
         }
